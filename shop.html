@@ -1,292 +1,175 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<title>Gotilo — Shop</title>
-<meta name="theme-color" content="#F2EBE1"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>Gotilo — Shop Profile</title>
+<meta name="theme-color" content="#F7F3EE"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-:root{--bg:#F2EBE1;--card:#FFFFFF;--text-1:#1A1A1A;--text-2:#6B6B6B;--text-3:#ABABAB;--accent:#F97316;--green:#16A34A;--green-bg:#F0FDF4;--red:#DC2626;--red-bg:#FEF2F2;--sh-card:0 2px 16px rgba(0,0,0,0.07);--sh-sm:0 1px 8px rgba(0,0,0,0.05);}
-html,body{height:100%;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);display:flex;justify-content:center;align-items:flex-start;color:var(--text-1);}
-.phone{width:100%;max-width:480px;height:100dvh;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;position:relative;margin:0 auto;}
-@media(max-width:480px){.phone{max-width:100%;border-radius:0;}}
-.statusbar{height:44px;padding:12px 26px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.sb-time{font-size:15px;font-weight:600;letter-spacing:-.3px;}
-.sb-icons{display:flex;align-items:center;gap:5px;}
-/* scrollable */
-.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:100px;}
+:root{
+  --bg:#F6F2EC;--bg-subtle:#EFEAE2;--card:#FFFFFF;--card-alt:#FAF7F2;
+  --text-1:#181614;--text-2:#5E5A54;--text-3:#9E988F;
+  --accent:#E8590C;--accent-soft:#FFF2E8;--accent-deep:#C94A05;
+  --green:#15803D;--green-bg:#EDFBF1;--blue:#1D4ED8;--blue-bg:#EFF6FF;
+  --border:#E7E1D8;--border-light:#F0EBE3;
+  --sh-sm:0 2px 8px rgba(24,22,20,0.04);--sh-md:0 6px 20px rgba(24,22,20,0.06);
+  --radius-sm:10px;--radius-md:16px;--radius-lg:22px;--radius-full:9999px;
+  --font:'Plus Jakarta Sans','Noto Sans Gujarati',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text-1);display:flex;justify-content:center;align-items:flex-start;-webkit-font-smoothing:antialiased;}
+.app{width:100%;max-width:540px;height:100dvh;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.06);}
+
+.top-nav{
+  background:var(--card);padding:10px 16px;border-bottom:1px solid var(--border-light);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:30;
+}
+.btn-circle{
+  width:36px;height:36px;border-radius:50%;background:var(--bg);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-1);transition:all 0.15s;
+}
+.btn-circle:active{transform:scale(0.92);background:var(--border);}
+.nav-title{font-size:15px;font-weight:800;color:var(--text-1);}
+
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:90px;}
 .content::-webkit-scrollbar{display:none;}
-/* Hero */
+
 .shop-hero{
-  width:100%;height:220px;background:linear-gradient(135deg,#FEF9C3,#FDE68A);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;font-size:72px;
-  flex-shrink:0;
-}
-.hero-back{
-  position:absolute;top:16px;left:16px;
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--text-1);
-}
-.hero-share{
-  position:absolute;top:16px;right:16px;
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--text-1);
+  width:100%;height:180px;background:linear-gradient(135deg,#FEF08A,#FDE047);
+  display:flex;align-items:center;justify-content:center;position:relative;font-size:68px;flex-shrink:0;
 }
 .open-pill{
-  position:absolute;bottom:14px;left:16px;
-  background:var(--green-bg);color:var(--green);
-  border-radius:100px;padding:4px 12px;font-size:12px;font-weight:700;
-  display:flex;align-items:center;gap:5px;
+  position:absolute;bottom:12px;left:14px;background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(6px);color:var(--green);border-radius:var(--radius-full);
+  padding:3px 10px;font-size:11px;font-weight:800;display:flex;align-items:center;gap:4px;
 }
 .op-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
-/* Shop Info */
-.shop-info{background:var(--card);margin:0 0 10px 0;padding:16px 20px 18px;}
-.shop-name{font-size:22px;font-weight:800;color:var(--text-1);letter-spacing:-.5px;margin-bottom:4px;}
-.shop-cat{font-size:14px;color:var(--text-2);margin-bottom:12px;}
-.shop-stats{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+
+.shop-info{background:var(--card);padding:16px 18px;margin-bottom:12px;border-bottom:1px solid var(--border-light);}
+.shop-name{font-size:20px;font-weight:800;color:var(--text-1);margin-bottom:2px;}
+.shop-cat{font-size:13px;color:var(--text-2);margin-bottom:12px;}
+
+.shop-stats{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
 .stat-item{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.stat-val{font-size:17px;font-weight:800;color:var(--text-1);}
-.stat-label{font-size:11px;color:var(--text-3);font-weight:400;}
-.stat-div{width:1px;height:32px;background:#E8E8E8;}
-.shop-addr{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-top:1px solid #F0F0F0;}
-.addr-icon{color:var(--accent);flex-shrink:0;margin-top:1px;}
-.addr-text{font-size:13px;color:var(--text-2);line-height:1.45;}
-/* Action buttons */
-.action-btns{
-  display:flex;gap:10px;padding:14px 20px;
-  background:var(--card);margin-bottom:10px;
+.stat-val{font-size:16px;font-weight:800;color:var(--text-1);}
+.stat-label{font-size:11px;color:var(--text-3);}
+.stat-div{width:1px;height:28px;background:var(--border-light);}
+
+.shop-addr{display:flex;align-items:flex-start;gap:8px;padding-top:10px;border-top:1px dashed var(--border-light);font-size:12.5px;color:var(--text-2);}
+
+.action-btns{display:flex;gap:8px;padding:0 14px 14px;}
+.abtn{
+  flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;font-size:11px;font-weight:700;color:var(--text-1);box-shadow:var(--sh-sm);
+  transition:all 0.15s;
 }
-.act-btn{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;
-  background:var(--bg);border-radius:14px;padding:12px 6px;
-  cursor:pointer;transition:all .15s;border:1px solid #E8E8E8;
-}
-.act-btn:active{background:#E8E8E8;}
-.act-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.act-icon.orange{background:#FFF7ED;color:var(--accent);}
-.act-icon.green{background:var(--green-bg);color:var(--green);}
-.act-icon.blue{background:#DBEAFE;color:#2563EB;}
-.act-icon.purple{background:#EDE9FE;color:#7C3AED;}
-.act-label{font-size:11.5px;font-weight:600;color:var(--text-2);}
-/* Section */
-.section{padding:16px 20px;background:var(--card);margin-bottom:10px;}
-.sec-title{font-size:16px;font-weight:700;color:var(--text-1);margin-bottom:14px;}
-/* Products */
-.prod-list{display:flex;flex-direction:column;gap:10px;}
-.prod-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F5F5F5;}
-.prod-item:last-child{border-bottom:none;}
-.prod-left{display:flex;align-items:center;gap:10px;}
-.prod-emoji{font-size:22px;}
-.prod-name{font-size:14px;font-weight:600;color:var(--text-1);}
-.prod-unit{font-size:12px;color:var(--text-3);}
-.prod-price{font-size:15px;font-weight:700;color:var(--text-1);}
-/* Hours */
-.hours-grid{display:flex;flex-direction:column;gap:6px;}
-.hours-row{display:flex;justify-content:space-between;align-items:center;}
-.hours-day{font-size:13.5px;color:var(--text-2);}
-.hours-time{font-size:13.5px;font-weight:600;color:var(--text-1);}
-.hours-today .hours-day{font-weight:700;color:var(--text-1);}
-.hours-today .hours-time{color:var(--accent);}
-/* Reviews */
-.review-list{display:flex;flex-direction:column;gap:14px;}
-.review-item{}
-.rev-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
-.rev-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FBBF24);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
-.rev-name{font-size:13.5px;font-weight:600;color:var(--text-1);}
-.rev-stars{display:flex;gap:1px;margin-top:1px;}
-.rev-star{color:#F59E0B;font-size:11px;}
-.rev-date{font-size:11px;color:var(--text-3);margin-left:auto;}
-.rev-text{font-size:13px;color:var(--text-2);line-height:1.5;}
-/* Bottom CTA */
+.abtn:active{transform:scale(0.95);background:var(--accent-soft);border-color:var(--accent);}
+.abtn-icon{font-size:18px;}
+
+.section-box{background:var(--card);border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);padding:14px 18px;margin-bottom:12px;}
+.sec-title{font-size:15px;font-weight:800;color:var(--text-1);margin-bottom:10px;}
+
+.product-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-light);}
+.product-row:last-child{border-bottom:none;}
+.p-left{display:flex;align-items:center;gap:10px;}
+.p-emoji{font-size:22px;width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.p-name{font-size:13.5px;font-weight:700;color:var(--text-1);}
+.p-sub{font-size:11px;color:var(--text-3);}
+.p-price{font-size:13.5px;font-weight:800;color:var(--accent);}
+
 .bottom-cta{
-  position:absolute;bottom:0;left:0;right:0;
-  background:var(--card);border-top:1px solid #F0F0F0;
-  padding:12px 20px 28px;
-  display:flex;gap:10px;
+  position:absolute;bottom:0;left:0;right:0;background:var(--card);
+  border-top:1px solid var(--border-light);padding:10px 14px 18px;display:flex;gap:8px;z-index:40;
 }
 .cta-chat{
-  width:50px;height:50px;border-radius:14px;background:var(--bg);
-  border:1.5px solid #E8E8E8;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--text-2);flex-shrink:0;
+  width:44px;height:44px;border-radius:13px;background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;
 }
 .cta-primary{
-  flex:1;background:var(--accent);border:none;border-radius:14px;
-  font-size:15px;font-weight:700;color:#fff;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  cursor:pointer;transition:all .15s;
+  flex:1;background:var(--accent);border:none;border-radius:13px;color:#fff;
+  font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(232,89,12,0.3);
 }
-.cta-primary:active{background:#EA6C0A;}
+
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--text-1);color:#fff;padding:10px 18px;border-radius:var(--radius-full);font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all 0.3s;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 </style>
 </head>
 <body>
-<div class="phone">
-<div class="statusbar">
-  <span class="sb-time" id="sbTime">9:41</span>
-  <div class="sb-icons">
-    <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="7.5" width="3" height="4.5" rx=".6"/><rect x="4.5" y="5" width="3" height="7" rx=".6"/><rect x="9" y="2" width="3" height="10" rx=".6"/><rect x="13.5" y="0" width="3" height="12" rx=".6" opacity=".3"/></svg>
-    <svg width="16" height="12" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 7c2.7-2.7 6.3-4 10-4s7.3 1.3 10 4"/><path d="M5.5 10.5c1.8-1.8 4.1-2.7 6.5-2.7s4.7.9 6.5 2.7"/><path d="M9.5 14c.7-.7 1.6-1.2 2.5-1.2s1.8.4 2.5 1.2"/><circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg>
-    <svg width="26" height="12" viewBox="0 0 26 12" fill="currentColor"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="22.5" y="3.5" width="2.5" height="5" rx="1.2"/><rect x="2" y="2" width="17" height="8" rx="1.5"/></svg>
+<div class="app">
+  <div class="top-nav">
+    <div class="btn-circle" onclick="history.back()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <span class="nav-title">Shop Details</span>
+    <div class="btn-circle" onclick="showToast('Shop link copied!')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="shop-hero">
+      <div class="open-pill"><span class="op-dot"></span> OPEN NOW</div>
+      🥛
+    </div>
+
+    <div class="shop-info">
+      <div class="shop-name">Amul Daily Dairy &amp; Baker's Hub</div>
+      <div class="shop-cat">Dairy, Milk, Bakery &amp; Everyday Fresh Goods</div>
+      <div class="shop-stats">
+        <div class="stat-item"><span class="stat-val">★ 4.9</span><span class="stat-label">510 Reviews</span></div>
+        <div class="stat-div"></div>
+        <div class="stat-item"><span class="stat-val">0.3 km</span><span class="stat-label">Satellite</span></div>
+        <div class="stat-div"></div>
+        <div class="stat-item"><span class="stat-val">Free</span><span class="stat-label">Drop ₹150+</span></div>
+      </div>
+      <div class="shop-addr">📍 Shop 4, Shyamal Cross Roads, Satellite, Ahmedabad</div>
+    </div>
+
+    <div class="action-btns">
+      <div class="abtn" onclick="showToast('Calling: +91 98980 11223')"><span class="abtn-icon">📞</span>Call Store</div>
+      <div class="abtn" onclick="showToast('Opening Google Maps')"><span class="abtn-icon">📍</span>Directions</div>
+      <div class="abtn" onclick="window.location.href='chat.html?q=Amul+milk+delivery'"><span class="abtn-icon">💬</span>Chat Gotilo</div>
+      <div class="abtn" onclick="showToast('Saved to Favourites!')"><span class="abtn-icon">❤️</span>Save</div>
+    </div>
+
+    <div class="section-box">
+      <div class="sec-title">Daily Items in Stock</div>
+      <div class="product-row">
+        <div class="p-left"><div class="p-emoji">🥛</div><div><div class="p-name">Amul Gold Milk (500ml / 1L)</div><div class="p-sub">Fresh pouch in stock</div></div></div>
+        <div class="p-price">₹66 / L</div>
+      </div>
+      <div class="product-row">
+        <div class="p-left"><div class="p-emoji">🥣</div><div><div class="p-name">Amul Masti Dahi (400g / 1kg)</div><div class="p-sub">Fresh curd</div></div></div>
+        <div class="p-price">₹35</div>
+      </div>
+      <div class="product-row">
+        <div class="p-left"><div class="p-emoji">🧈</div><div><div class="p-name">Amul Fresh Paneer (200g)</div><div class="p-sub">Soft &amp; fresh</div></div></div>
+        <div class="p-price">₹90</div>
+      </div>
+      <div class="product-row">
+        <div class="p-left"><div class="p-emoji">🍞</div><div><div class="p-name">Fresh Brown &amp; White Bread</div><div class="p-sub">Daily bakery supply</div></div></div>
+        <div class="p-price">₹30</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    <div class="cta-chat" onclick="window.location.href='chat.html?q=Amul+milk+order'">💬</div>
+    <button class="cta-primary" onclick="showToast('Order request broadcasted to shop! ⚡')">Order Home Delivery</button>
   </div>
 </div>
-
-<div class="content">
-  <!-- Hero -->
-  <div class="shop-hero">
-    <div class="hero-back" onclick="history.back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></div>
-    <div class="hero-share"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-    &#128722;
-    <div class="open-pill"><span class="op-dot"></span>Open Now</div>
-  </div>
-
-  <!-- Shop Info -->
-  <div class="shop-info">
-    <div class="shop-name">Shree Krishna Kirana</div>
-    <div class="shop-cat">Grocery &amp; Essentials &middot; Ahmedabad</div>
-    <div class="shop-stats">
-      <div class="stat-item">
-        <span class="stat-val">&#9733; 4.6</span>
-        <span class="stat-label">Rating</span>
-      </div>
-      <div class="stat-div"></div>
-      <div class="stat-item">
-        <span class="stat-val">0.7 km</span>
-        <span class="stat-label">Away</span>
-      </div>
-      <div class="stat-div"></div>
-      <div class="stat-item">
-        <span class="stat-val">247</span>
-        <span class="stat-label">Reviews</span>
-      </div>
-      <div class="stat-div"></div>
-      <div class="stat-item">
-        <span class="stat-val">8 yrs</span>
-        <span class="stat-label">On Gotilo</span>
-      </div>
-    </div>
-    <div class="shop-addr">
-      <div class="addr-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <div class="addr-text">12, Ramnagar Society, Near Sattadhar Cross Road, Satellite, Ahmedabad</div>
-    </div>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="action-btns">
-    <div class="act-btn">
-      <div class="act-icon orange"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.67a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16l.19.92z"/></svg></div>
-      <span class="act-label">Call</span>
-    </div>
-    <div class="act-btn">
-      <div class="act-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
-      <span class="act-label">Directions</span>
-    </div>
-    <div class="act-btn">
-      <div class="act-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <span class="act-label">Chat</span>
-    </div>
-    <div class="act-btn">
-      <div class="act-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-      <span class="act-label">Save</span>
-    </div>
-  </div>
-
-  <!-- Products -->
-  <div class="section">
-    <div class="sec-title">Products Available</div>
-    <div class="prod-list">
-      <div class="prod-item">
-        <div class="prod-left"><span class="prod-emoji">&#127806;</span><div><div class="prod-name">Atta (Wheat Flour)</div><div class="prod-unit">per kg</div></div></div>
-        <div class="prod-price">&#8377;55</div>
-      </div>
-      <div class="prod-item">
-        <div class="prod-left"><span class="prod-emoji">&#129382;</span><div><div class="prod-name">Besan (Gram Flour)</div><div class="prod-unit">per kg</div></div></div>
-        <div class="prod-price">&#8377;80</div>
-      </div>
-      <div class="prod-item">
-        <div class="prod-left"><span class="prod-emoji">&#127858;</span><div><div class="prod-name">Basmati Rice</div><div class="prod-unit">per kg</div></div></div>
-        <div class="prod-price">&#8377;95</div>
-      </div>
-      <div class="prod-item">
-        <div class="prod-left"><span class="prod-emoji">&#129371;</span><div><div class="prod-name">Toor Dal</div><div class="prod-unit">per kg</div></div></div>
-        <div class="prod-price">&#8377;130</div>
-      </div>
-      <div class="prod-item">
-        <div class="prod-left"><span class="prod-emoji">&#129476;</span><div><div class="prod-name">Refined Oil (1L)</div><div class="prod-unit">per bottle</div></div></div>
-        <div class="prod-price">&#8377;145</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hours -->
-  <div class="section">
-    <div class="sec-title">Business Hours</div>
-    <div class="hours-grid">
-      <div class="hours-row hours-today">
-        <span class="hours-day">Tuesday (Today)</span>
-        <span class="hours-time">7:00 AM – 10:30 PM</span>
-      </div>
-      <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">7:00 AM – 10:30 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">7:00 AM – 10:30 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">7:00 AM – 10:30 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">7:00 AM – 11:00 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">8:00 AM – 9:00 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-time">7:00 AM – 10:30 PM</span></div>
-    </div>
-  </div>
-
-  <!-- Reviews -->
-  <div class="section">
-    <div class="sec-title">Reviews &middot; 4.6 &#9733;</div>
-    <div class="review-list">
-      <div class="review-item">
-        <div class="rev-top">
-          <div class="rev-av">P</div>
-          <div><div class="rev-name">Priya Shah</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span></div></div>
-          <span class="rev-date">2 days ago</span>
-        </div>
-        <div class="rev-text">Very fresh stock, reasonable prices and the owner is super helpful. Gets my groceries delivered same day too!</div>
-      </div>
-      <div class="review-item">
-        <div class="rev-top">
-          <div class="rev-av" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)">R</div>
-          <div><div class="rev-name">Ravi Mehta</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span style="color:var(--text-3);font-size:11px">&#9733;</span></div></div>
-          <span class="rev-date">1 week ago</span>
-        </div>
-        <div class="rev-text">Good variety of products. Prices are competitive. Sometimes runs out of stock on weekends.</div>
-      </div>
-      <div class="review-item">
-        <div class="rev-top">
-          <div class="rev-av" style="background:linear-gradient(135deg,#16A34A,#059669)">A</div>
-          <div><div class="rev-name">Anita Joshi</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span></div></div>
-          <span class="rev-date">2 weeks ago</span>
-        </div>
-        <div class="rev-text">Been coming here for years. Best kirana in the area. Always fresh, always stocked, always polite!</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Bottom CTA -->
-<div class="bottom-cta">
-  <div class="cta-chat" onclick="window.location.href='chat.html'">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  </div>
-  <div class="cta-primary">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-    Get Directions
-  </div>
-</div>
-
-</div>
+<div id="toast" class="toast">Action</div>
 <script>
-function tick(){const n=new Date();document.getElementById('sbTime').textContent=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');}
-tick();setInterval(tick,30000);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
 </script>
 </body>
 </html>
-

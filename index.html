@@ -53,7 +53,7 @@ html,body{
 
 .app{
   width:100%;
-  max-width:480px;
+  max-width:540px;
   height:100dvh;
   background:var(--bg);
   display:flex;
@@ -61,6 +61,9 @@ html,body{
   position:relative;
   overflow:hidden;
   box-shadow:0 0 40px rgba(0,0,0,0.06);
+}
+@media(max-width:540px){
+  .app{max-width:100%;box-shadow:none;}
 }
 
 .header{
