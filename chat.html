@@ -20,9 +20,9 @@
   --radius-sm:10px;--radius-md:16px;--radius-lg:22px;--radius-full:9999px;
   --font:'Plus Jakarta Sans','Noto Sans Gujarati',-apple-system,BlinkMacSystemFont,sans-serif;
 }
-html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text-1);display:flex;justify-content:center;align-items:flex-start;-webkit-font-smoothing:antialiased;}
-.app{width:100%;max-width:540px;height:100dvh;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.06);}
-@media(max-width:540px){.app{max-width:100%;box-shadow:none;}}
+html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);background:var(--bg);color:var(--text-1);-webkit-font-smoothing:antialiased;}
+.app{width:100%;max-width:480px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.06);}
+@media(max-width:600px){.app{max-width:100%;box-shadow:none;}}
 
 /* Chat Header */
 .chat-header{
