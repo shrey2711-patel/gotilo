@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>Gotilo — Professional</title>
+<meta name="theme-color" content="#F2EBE1"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#F2EBE1;--card:#FFFFFF;--text-1:#1A1A1A;--text-2:#6B6B6B;--text-3:#ABABAB;--accent:#F97316;--green:#16A34A;--green-bg:#F0FDF4;--sh-card:0 2px 16px rgba(0,0,0,0.07);--sh-sm:0 1px 8px rgba(0,0,0,0.05);}
+html,body{height:100%;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);display:flex;justify-content:center;align-items:flex-start;color:var(--text-1);}
+.phone{width:100%;max-width:480px;height:100dvh;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;position:relative;margin:0 auto;}
+@media(max-width:480px){.phone{max-width:100%;border-radius:0;}}
+.statusbar{height:44px;padding:12px 26px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sb-time{font-size:15px;font-weight:600;letter-spacing:-.3px;}
+.sb-icons{display:flex;align-items:center;gap:5px;}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:100px;}
+.content::-webkit-scrollbar{display:none;}
+/* Hero */
+.pro-hero{
+  background:linear-gradient(160deg,#1A1A1A 0%,#2D2D2D 100%);
+  padding:16px 16px 28px;position:relative;
+}
+.hero-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.hback{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+.hshare{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+.pro-av-wrap{display:flex;align-items:flex-end;gap:14px;}
+.pro-av{
+  width:80px;height:80px;border-radius:22px;
+  background:linear-gradient(135deg,#DBEAFE,#BAE6FD);
+  display:flex;align-items:center;justify-content:center;
+  font-size:38px;flex-shrink:0;border:3px solid rgba(255,255,255,.15);
+}
+.pro-hero-info{}
+.pro-hero-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;margin-bottom:3px;}
+.pro-hero-title{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:8px;}
+.verified-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(249,115,22,.20);border:1px solid rgba(249,115,22,.35);
+  border-radius:100px;padding:3px 10px;
+  font-size:11.5px;font-weight:700;color:var(--accent);
+}
+/* Stats strip */
+.stats-strip{
+  background:var(--card);
+  display:flex;
+  margin-bottom:10px;
+}
+.strip-stat{flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 0;border-right:1px solid #F0F0F0;}
+.strip-stat:last-child{border-right:none;}
+.ss-val{font-size:18px;font-weight:800;color:var(--text-1);}
+.ss-label{font-size:11px;color:var(--text-3);margin-top:2px;}
+/* Availability card */
+.avail-card{
+  background:var(--card);padding:14px 20px;margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.avail-left{display:flex;align-items:center;gap:10px;}
+.avail-dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.avail-text{font-size:15px;font-weight:700;color:var(--text-1);}
+.avail-sub{font-size:12px;color:var(--text-3);margin-top:1px;}
+.avail-price{text-align:right;}
+.price-from{font-size:11px;color:var(--text-3);}
+.price-val{font-size:19px;font-weight:800;color:var(--text-1);letter-spacing:-.4px;}
+/* Section */
+.section{padding:16px 20px;background:var(--card);margin-bottom:10px;}
+.sec-title{font-size:16px;font-weight:700;color:var(--text-1);margin-bottom:12px;}
+/* Services */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.svc-item{
+  background:var(--bg);border-radius:12px;padding:12px;
+  border:1px solid #E8E8E8;
+}
+.svc-icon{font-size:20px;margin-bottom:5px;}
+.svc-name{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
+.svc-price{font-size:12px;color:var(--text-2);}
+/* About */
+.about-text{font-size:14px;color:var(--text-2);line-height:1.6;}
+/* Portfolio */
+.portfolio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.port-item{
+  aspect-ratio:1;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+}
+.port-item.c1{background:linear-gradient(135deg,#DBEAFE,#BAE6FD);}
+.port-item.c2{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);}
+.port-item.c3{background:linear-gradient(135deg,#FCE7F3,#FBCFE8);}
+/* Reviews */
+.review-list{display:flex;flex-direction:column;gap:14px;}
+.review-item{}
+.rev-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.rev-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FBBF24);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.rev-name{font-size:13.5px;font-weight:600;color:var(--text-1);}
+.rev-stars{display:flex;gap:1px;margin-top:1px;}
+.rev-star{color:#F59E0B;font-size:11px;}
+.rev-date{font-size:11px;color:var(--text-3);margin-left:auto;}
+.rev-text{font-size:13px;color:var(--text-2);line-height:1.5;}
+/* Bottom CTA */
+.bottom-cta{
+  position:absolute;bottom:0;left:0;right:0;
+  background:var(--card);border-top:1px solid #F0F0F0;
+  padding:12px 20px 28px;display:flex;gap:10px;
+}
+.cta-chat{width:50px;height:50px;border-radius:14px;background:var(--bg);border:1.5px solid #E8E8E8;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);flex-shrink:0;}
+.cta-call{width:50px;height:50px;border-radius:14px;background:#F0FDF4;border:1.5px solid #BBF7D0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--green);flex-shrink:0;}
+.cta-primary{flex:1;background:var(--accent);border:none;border-radius:14px;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .15s;}
+.cta-primary:active{background:#EA6C0A;}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="statusbar">
+  <span class="sb-time" id="sbTime">9:41</span>
+  <div class="sb-icons">
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="7.5" width="3" height="4.5" rx=".6"/><rect x="4.5" y="5" width="3" height="7" rx=".6"/><rect x="9" y="2" width="3" height="10" rx=".6"/><rect x="13.5" y="0" width="3" height="12" rx=".6" opacity=".3"/></svg>
+    <svg width="16" height="12" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 7c2.7-2.7 6.3-4 10-4s7.3 1.3 10 4"/><path d="M5.5 10.5c1.8-1.8 4.1-2.7 6.5-2.7s4.7.9 6.5 2.7"/><path d="M9.5 14c.7-.7 1.6-1.2 2.5-1.2s1.8.4 2.5 1.2"/><circle cx="12" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg>
+    <svg width="26" height="12" viewBox="0 0 26 12" fill="currentColor"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="22.5" y="3.5" width="2.5" height="5" rx="1.2"/><rect x="2" y="2" width="17" height="8" rx="1.5"/></svg>
+  </div>
+</div>
+
+<div class="content">
+  <!-- Hero -->
+  <div class="pro-hero">
+    <div class="hero-nav">
+      <div class="hback" onclick="history.back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="hshare"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+    </div>
+    <div class="pro-av-wrap">
+      <div class="pro-av">&#128295;</div>
+      <div class="pro-hero-info">
+        <div class="pro-hero-name">Rajesh Sharma</div>
+        <div class="pro-hero-title">Plumber &middot; Ahmedabad</div>
+        <div class="verified-badge">&#10003; Gotilo Verified</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="strip-stat"><span class="ss-val">&#9733; 4.8</span><span class="ss-label">Rating</span></div>
+    <div class="strip-stat"><span class="ss-val">312</span><span class="ss-label">Jobs Done</span></div>
+    <div class="strip-stat"><span class="ss-val">6 yrs</span><span class="ss-label">Experience</span></div>
+    <div class="strip-stat"><span class="ss-val">2.1 km</span><span class="ss-label">Away</span></div>
+  </div>
+
+  <!-- Availability -->
+  <div class="avail-card">
+    <div class="avail-left">
+      <div class="avail-dot"></div>
+      <div>
+        <div class="avail-text">Available Right Now</div>
+        <div class="avail-sub">Usually responds in under 5 min</div>
+      </div>
+    </div>
+    <div class="avail-price">
+      <div class="price-from">Starting from</div>
+      <div class="price-val">&#8377;299</div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="section">
+    <div class="sec-title">Services Offered</div>
+    <div class="svc-grid">
+      <div class="svc-item"><div class="svc-icon">&#128694;</div><div class="svc-name">Tap / Faucet Repair</div><div class="svc-price">From &#8377;299</div></div>
+      <div class="svc-item"><div class="svc-icon">&#128704;</div><div class="svc-name">Pipe Leak Fix</div><div class="svc-price">From &#8377;349</div></div>
+      <div class="svc-item"><div class="svc-icon">&#128705;</div><div class="svc-name">Toilet Repair</div><div class="svc-price">From &#8377;399</div></div>
+      <div class="svc-item"><div class="svc-icon">&#128706;</div><div class="svc-name">New Installation</div><div class="svc-price">From &#8377;499</div></div>
+      <div class="svc-item"><div class="svc-icon">&#127968;</div><div class="svc-name">Bathroom Fitting</div><div class="svc-price">From &#8377;799</div></div>
+      <div class="svc-item"><div class="svc-icon">&#128295;</div><div class="svc-name">Water Tank Repair</div><div class="svc-price">From &#8377;449</div></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="sec-title">About Rajesh</div>
+    <div class="about-text">
+      6+ years of plumbing experience across residential and commercial properties in Ahmedabad. Specialised in bathroom and kitchen fittings. Uses quality parts only. Transparent pricing with no hidden charges.<br><br>Serves Satellite, Bodakdev, Vastrapur, S.G. Highway areas and surrounding neighbourhoods.
+    </div>
+  </div>
+
+  <!-- Portfolio -->
+  <div class="section">
+    <div class="sec-title">Recent Work</div>
+    <div class="portfolio-grid">
+      <div class="port-item c1">&#128694;</div>
+      <div class="port-item c2">&#128295;</div>
+      <div class="port-item c3">&#128705;</div>
+      <div class="port-item c3">&#127968;</div>
+      <div class="port-item c1">&#128704;</div>
+      <div class="port-item c2">&#128706;</div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="section">
+    <div class="sec-title">Reviews &middot; 4.8 &#9733;</div>
+    <div class="review-list">
+      <div class="review-item">
+        <div class="rev-top">
+          <div class="rev-av">S</div>
+          <div><div class="rev-name">Sneha Patel</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span></div></div>
+          <span class="rev-date">3 days ago</span>
+        </div>
+        <div class="rev-text">Rajesh bhai came within 20 minutes! Fixed the leaking pipe perfectly. Very professional and charged exactly what he quoted. Highly recommended.</div>
+      </div>
+      <div class="review-item">
+        <div class="rev-top">
+          <div class="rev-av" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)">M</div>
+          <div><div class="rev-name">Mihir Desai</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span></div></div>
+          <span class="rev-date">1 week ago</span>
+        </div>
+        <div class="rev-text">Bathroom tap was leaking for 2 days. Found Rajesh through Gotilo, he came the same evening and fixed it in 30 minutes. Great work!</div>
+      </div>
+      <div class="review-item">
+        <div class="rev-top">
+          <div class="rev-av" style="background:linear-gradient(135deg,#16A34A,#059669)">K</div>
+          <div><div class="rev-name">Kiran Joshi</div><div class="rev-stars"><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span class="rev-star">&#9733;</span><span style="color:var(--text-3);font-size:11px">&#9733;</span></div></div>
+          <span class="rev-date">2 weeks ago</span>
+        </div>
+        <div class="rev-text">Good work, done quickly. Only slight issue was he was 15 minutes late, but called ahead to let me know. Overall satisfied.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom CTA -->
+<div class="bottom-cta">
+  <div class="cta-chat" onclick="window.location.href='chat.html'">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </div>
+  <div class="cta-call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.67a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16l.19.92z"/></svg>
+  </div>
+  <div class="cta-primary">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Request Service
+  </div>
+</div>
+
+</div>
+<script>
+function tick(){const n=new Date();document.getElementById('sbTime').textContent=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');}
+tick();setInterval(tick,30000);
+</script>
+</body>
+</html>
+
