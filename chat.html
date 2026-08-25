@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<title>Gotilo — Conversational Assistant</title>
-<meta name="theme-color" content="#F7F3EE"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<title>Gotilo AI — Hyperlocal Assistant</title>
+<meta name="theme-color" content="#F6F2EC"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -26,7 +26,7 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 
 /* Chat Header */
 .chat-header{
-  background:var(--card);padding:10px 14px 10px;border-bottom:1px solid var(--border-light);
+  background:var(--card);padding:10px 14px;border-bottom:1px solid var(--border-light);
   display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:30;
 }
 .ch-left{display:flex;align-items:center;gap:10px;}
@@ -45,13 +45,18 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 .ch-sub{font-size:11px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:2px;}
 .ch-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 1.5s infinite;}
 @keyframes livePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.2);}}
-.ai-settings-pill{
-  background:var(--card-alt);border:1px solid var(--border);padding:5px 9px;
-  border-radius:var(--radius-full);font-size:11px;font-weight:700;color:var(--text-2);
+.header-actions{display:flex;align-items:center;gap:6px;}
+.ai-badge{
+  background:var(--green-bg);border:1px solid rgba(21,128,61,0.2);padding:4px 8px;
+  border-radius:var(--radius-full);font-size:11px;font-weight:700;color:var(--green);
   display:flex;align-items:center;gap:4px;cursor:pointer;
 }
+.clear-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-3);font-size:14px;
+}
 
-/* Quick Topic Pills */
+/* Quick Scenarios Bar */
 .scenario-bar{
   background:var(--card);border-bottom:1px solid var(--border-light);
   padding:8px 0;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-left:14px;
@@ -69,20 +74,20 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 /* Chat Area */
 .chat-area{
   flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
-  padding:14px 14px 20px;display:flex;flex-direction:column;gap:6px;scrollbar-width:none;
+  padding:14px 14px 20px;display:flex;flex-direction:column;gap:8px;scrollbar-width:none;
 }
 .chat-area::-webkit-scrollbar{display:none;}
-.date-sep{text-align:center;margin:6px 0 10px;font-size:11px;font-weight:600;color:var(--text-3);}
+.date-sep{text-align:center;margin:4px 0 8px;font-size:11px;font-weight:600;color:var(--text-3);}
 
-.msg-row-user{display:flex;justify-content:flex-end;margin-bottom:6px;}
+.msg-row-user{display:flex;justify-content:flex-end;margin-bottom:4px;}
 .bubble-user{
   background:var(--text-1);color:#fff;border-radius:18px 18px 4px 18px;
-  padding:10px 14px;max-width:80%;font-size:14px;line-height:1.4;font-weight:500;
-  box-shadow:var(--sh-sm);
+  padding:10px 14px;max-width:82%;font-size:14px;line-height:1.4;font-weight:500;
+  box-shadow:var(--sh-sm);word-wrap:break-word;
 }
 .msg-time-user{font-size:10px;color:var(--text-3);text-align:right;margin-top:3px;}
 
-.msg-row-g{display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;}
+.msg-row-g{display:flex;align-items:flex-end;gap:8px;margin-bottom:4px;}
 .g-av{
   width:28px;height:28px;border-radius:50%;background:var(--accent);
   display:flex;align-items:center;justify-content:center;
@@ -90,23 +95,25 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 }
 .bubble-g{
   background:var(--card);color:var(--text-1);border-radius:18px 18px 18px 4px;
-  padding:11px 14px;max-width:82%;font-size:14px;line-height:1.45;
+  padding:11px 14px;max-width:84%;font-size:14px;line-height:1.45;
   border:1px solid var(--border);box-shadow:var(--sh-sm);font-weight:500;
+  word-wrap:break-word;
 }
+.bubble-g strong, .bubble-g b{font-weight:700;color:var(--text-1);}
 
-.typing-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;}
+.typing-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:4px;}
 .typing-bubble{
   background:var(--card);border-radius:18px 18px 18px 4px;
   padding:10px 14px;border:1px solid var(--border);box-shadow:var(--sh-sm);
   display:flex;gap:5px;align-items:center;
 }
-.td{width:6px;height:6px;background:var(--text-3);border-radius:50%;animation:tdBounce 1.3s infinite;}
+.td{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:tdBounce 1.3s infinite;}
 .td:nth-child(2){animation-delay:.2s;}
 .td:nth-child(3){animation-delay:.4s;}
 @keyframes tdBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}
 
 /* Results Cards */
-.chat-cards{display:flex;flex-direction:column;gap:10px;margin:8px 0 8px 36px;}
+.chat-cards{display:flex;flex-direction:column;gap:9px;margin:4px 0 6px 36px;}
 .ccard{
   background:var(--card);border-radius:16px;padding:12px 13px;
   border:1px solid var(--border);box-shadow:var(--sh-sm);cursor:pointer;
@@ -115,8 +122,8 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 .ccard:active{transform:scale(0.98);}
 .cc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
 .cc-av{
-  width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
-  justify-content:center;font-size:22px;flex-shrink:0;
+  width:42px;height:42px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;
 }
 .cc-av.blue{background:#E0F2FE;}.cc-av.green{background:#DCFCE7;}
 .cc-av.peach{background:#FFEDD5;}.cc-av.purple{background:#F3E8FF;}
@@ -138,10 +145,10 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
   cursor:pointer;
 }
 
-.quick-chips{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 6px 36px;}
+.quick-chips{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px 36px;}
 .qchip{
   background:var(--card);border:1px solid var(--border);border-radius:var(--radius-full);
-  padding:6px 12px;font-size:12px;font-weight:700;color:var(--text-1);cursor:pointer;
+  padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--text-1);cursor:pointer;
   box-shadow:var(--sh-sm);transition:all 0.15s;
 }
 .qchip:active{background:var(--accent);color:#fff;border-color:var(--accent);}
@@ -153,7 +160,7 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 }
 .input-wrap-chat{
   flex:1;background:var(--bg);border:1.5px solid var(--border);
-  border-radius:20px;padding:8px 12px;display:flex;align-items:center;gap:8px;
+  border-radius:20px;padding:7px 12px;display:flex;align-items:center;gap:8px;
   transition:all 0.2s;
 }
 .input-wrap-chat:focus-within{border-color:var(--accent);background:#fff;}
@@ -162,7 +169,8 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
   background:transparent;border:none;outline:none;font-weight:500;
 }
 .ci-field::placeholder{color:var(--text-3);font-weight:400;}
-.ci-mic{color:var(--text-2);cursor:pointer;transition:all 0.15s;flex-shrink:0;}
+.ci-mic{color:var(--text-2);cursor:pointer;transition:all 0.15s;flex-shrink:0;display:flex;align-items:center;}
+.ci-mic.recording{color:var(--accent);animation:livePulse 1s infinite;}
 .ci-mic:active{transform:scale(0.92);color:var(--accent);}
 .send-btn-chat{
   width:40px;height:40px;border-radius:13px;background:var(--accent);
@@ -211,12 +219,15 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
       </div>
       <div class="ch-avatar">G</div>
       <div>
-        <div class="ch-name">Gotilo &middot; ગોતીઢો</div>
-        <div class="ch-sub"><span class="ch-dot"></span>Online &middot; Hyperlocal Assistant</div>
+        <div class="ch-name">Gotilo AI &middot; ગોતીઢો</div>
+        <div class="ch-sub"><span class="ch-dot"></span>Online &middot; Gemini Powered</div>
       </div>
     </div>
-    <div class="ai-settings-pill" onclick="openApiKeyModal()">
-      <span>⚡ AI Mode</span>
+    <div class="header-actions">
+      <div class="ai-badge" onclick="openApiKeyModal()">
+        <span>⚡ Gemini Active</span>
+      </div>
+      <div class="clear-btn" onclick="clearChatHistory()" title="Clear Chat">🗑️</div>
     </div>
   </div>
 
@@ -237,7 +248,7 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
   <!-- Input Bar -->
   <div class="chat-input-bar">
     <div class="input-wrap-chat">
-      <div class="ci-mic" onclick="triggerVoice()">
+      <div class="ci-mic" id="micBtn" onclick="toggleVoiceRecognition()" title="Speak in Gujarati, Hindi or English">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="1" width="6" height="14" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </div>
       <input id="chatInput" class="ci-field" type="text" placeholder="Tell Gotilo what you need..." autocomplete="off"/>
@@ -252,13 +263,12 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 <!-- AI Key Modal -->
 <div id="aiModal" class="modal-overlay" onclick="closeAiModal(event)">
   <div class="modal-sheet" onclick="event.stopPropagation()">
-    <div class="sheet-title">Connect Free Google Gemini AI ⚡</div>
+    <div class="sheet-title">Google Gemini AI Settings ⚡</div>
     <div class="sheet-sub">
-      Get your 100% free API key from Google AI Studio (no credit card required):<br>
-      <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:underline;display:inline-block;margin:6px 0;">👉 Click here to get Free Gemini API Key</a>
+      Your active Gemini API key is configured. You can update or replace it anytime:
     </div>
-    <input id="apiKeyInput" class="api-input" type="password" placeholder="Paste your free Gemini API Key (starts with AIzaSy...)"/>
-    <button class="sheet-btn" onclick="saveApiKey()">Save &amp; Activate Gemini</button>
+    <input id="apiKeyInput" class="api-input" type="password" placeholder="API Key (starts with AQ... or AIzaSy...)"/>
+    <button class="sheet-btn" onclick="saveApiKey()">Save &amp; Update Key</button>
   </div>
 </div>
 
@@ -268,12 +278,22 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font);
 const area = document.getElementById('chatArea');
 const inp = document.getElementById('chatInput');
 
-// ── Smart Knowledge Base ───────────────────────────────────────
+// ── Verified Gemini API Configuration ──────────────────────────
+const DEFAULT_GEMINI_KEY = "";
+const SYSTEM_INSTRUCTION = `You are Gotilo (ગોતીઢો), Ahmedabad's friendly and ultra-helpful hyperlocal city AI assistant.
+Brand motto: "બસ કહો, ગોતીઢો." (Just tell us, we will find it).
+Context: You help residents in Ahmedabad (Satellite, Vastrapur, Bodakdev, Prahlad Nagar, Navrangpura, SG Highway, Bopal) find daily essentials (Milk/Dairy, Kirana, Subji, Xerox), home repairs (Plumber, Electrician, AC repair, Locksmith, Puncture), and skilled workers (Sweepers, Maids, Tailors, Tutors).
+Guidelines:
+1. Speak warmly and naturally in the user's language (English, Gujarati/Gujlish, or Hindi).
+2. Answer in 2 short, direct, friendly sentences. Mention you found verified nearby local providers.
+3. Never use markdown asterisks (**) or bullet lists.
+4. At the very end of your response, you can optionally include 2-3 quick follow-up chips like: [CHIPS: Call now | Compare rates | Send today]`;
+
+let chatHistory = [];
+
+// ── Local Database & Knowledge Base ───────────────────────────
 const KNOWLEDGE = {
   sweeper: {
-    title: "Sweeper & Housekeeping",
-    ack: "Got it! 🧹 You need a house cleaner / sweeper.",
-    foundText: "I found <b>3 verified home cleaners & maids nearby</b> ready today:",
     cards: [
       {av:'🧹', avClass:'peach', name:'Geeta Ben Home Cleaning', sub:'Daily sweeping, mopping & dusting', rat:'4.9 (142)', dist:'0.5 km', price:'₹150 / day or ₹2500 / mo'},
       {av:'✨', avClass:'blue', name:'Suresh Deep Clean & Sweepers', sub:'Deep house clean, bathroom & balcony', rat:'4.8 (89)', dist:'1.1 km', price:'From ₹399 / visit'},
@@ -282,9 +302,6 @@ const KNOWLEDGE = {
     chips: ["⚡ Send Today", "📅 Monthly Maid", "📞 Call Geeta Ben"]
   },
   plumber: {
-    title: "Plumber",
-    ack: "Got it! 🔧 Sounds like a plumbing issue.",
-    foundText: "I found <b>4 plumbers nearby</b>. Two are available right now:",
     cards: [
       {av:'🔧', avClass:'blue', name:'Rajesh Plumbing Works', sub:'Tap leak, flush & pipe repairs · 6 yrs exp', rat:'4.8 (312)', dist:'0.6 km', price:'From ₹199'},
       {av:'🚰', avClass:'green', name:'Suresh Kumar Plumber', sub:'Bathroom fitting & RO pipeline · 4 yrs', rat:'4.6 (120)', dist:'1.2 km', price:'From ₹149'}
@@ -292,9 +309,6 @@ const KNOWLEDGE = {
     chips: ["⚡ Right Now", "📅 Later Today", "📞 Call Rajesh"]
   },
   dairy: {
-    title: "Milk & Dairy",
-    ack: "Sure! 🥛 Finding fresh dairy & essentials nearby.",
-    foundText: "I found <b>3 dairy parlours within 500m</b> with Amul Gold & Curd in stock:",
     cards: [
       {av:'🥛', avClass:'peach', name:'Amul Daily Parlour', sub:'Amul Gold ₹66/L · Dahi ₹35/500g · Chaas in stock', rat:'4.9 (510)', dist:'0.3 km', price:'MRP · Free drop ₹150+'},
       {av:'🍞', avClass:'blue', name:'Baker Hub & Dairy', sub:'Fresh Milk, Toast & Bread', rat:'4.7 (180)', dist:'0.6 km', price:'MRP'}
@@ -302,9 +316,6 @@ const KNOWLEDGE = {
     chips: ["🛵 Home Delivery", "🏃 Self Pickup", "📞 Call Parlour"]
   },
   ac: {
-    title: "AC Repair & Service",
-    ack: "Got it! ❄️ AC cooling & servicing needed.",
-    foundText: "I found <b>3 AC technicians near Satellite</b>:",
     cards: [
       {av:'❄️', avClass:'blue', name:'Amit Cooling & AC Care', sub:'Filter clean, gas filling & leakage fix · 5 yrs', rat:'4.7 (189)', dist:'1.8 km', price:'From ₹349'},
       {av:'🛠️', avClass:'green', name:'CoolCare Appliances', sub:'All AC brands & inverter repair', rat:'4.8 (95)', dist:'2.2 km', price:'From ₹299'}
@@ -312,9 +323,6 @@ const KNOWLEDGE = {
     chips: ["⚡ Today Booking", "❄️ Gas Top-up", "📞 Call Technician"]
   },
   xerox: {
-    title: "Xerox & Stationery",
-    ack: "Sure! 📄 Finding printout & stationery shops.",
-    foundText: "I found <b>3 print shops open right now</b>:",
     cards: [
       {av:'🖨️', avClass:'blue', name:'Patel Xerox & Printout', sub:'Color print, B&W ₹2/pg, Spiral binding', rat:'4.8 (340)', dist:'0.4 km', price:'From ₹2/page'},
       {av:'✏️', avClass:'peach', name:'City Books & Stationery', sub:'Pens, notebooks, files & print', rat:'4.6 (110)', dist:'0.8 km', price:'Open now'}
@@ -322,9 +330,6 @@ const KNOWLEDGE = {
     chips: ["🖨️ WhatsApp PDF", "📍 Get Directions", "📞 Call Shop"]
   },
   puncture: {
-    title: "Bike Puncture Repair",
-    ack: "Don't worry! 🚲 Finding mobile puncture mechanic nearby.",
-    foundText: "I found <b>2 mechanics on wheels</b> ready in 15 mins:",
     cards: [
       {av:'🛵', avClass:'peach', name:'Doorstep Puncture Express', sub:'Tubeless & tube puncture doorstep', rat:'4.9 (230)', dist:'0.7 km', price:'From ₹99'},
       {av:'🔧', avClass:'blue', name:'Kailash Auto Garage', sub:'Bike service & tyre repair', rat:'4.7 (88)', dist:'1.2 km', price:'From ₹80'}
@@ -332,9 +337,6 @@ const KNOWLEDGE = {
     chips: ["⚡ Send to my location", "📞 Call Mechanic", "💬 WhatsApp"]
   },
   grocery: {
-    title: "Kirana & Grocery",
-    ack: "Sure! 🌾 Finding grocery stores with home delivery.",
-    foundText: "I found <b>4 kirana stores nearby</b> with ration in stock:",
     cards: [
       {av:'🛒', avClass:'peach', name:'Shree Krishna Kirana', sub:'Wheat Atta ₹55/kg, Besan ₹80/kg, Rice & Oil', rat:'4.6 (247)', dist:'0.7 km', price:'Free drop ₹300+'},
       {av:'🌾', avClass:'green', name:'Jai Ambe Provisions', sub:'All groceries & spices', rat:'4.8 (115)', dist:'1.2 km', price:'Fast delivery'}
@@ -343,39 +345,20 @@ const KNOWLEDGE = {
   }
 };
 
-// ── Smart Natural Language Matcher ─────────────────────────────
-function matchIntent(query){
-  const q = query.toLowerCase();
-  if(q.includes('sweep') || q.includes('clean') || q.includes('maid') || q.includes('safai') || q.includes('kamvali') || q.includes('સફાઈ') || q.includes('કામવાળા') || q.includes('झाड़ू') || q.includes('पोछा') || q.includes('housekeeping')){
-    return KNOWLEDGE.sweeper;
-  }
-  if(q.includes('plumb') || q.includes('tap') || q.includes('leak') || q.includes('pipe') || q.includes('flush') || q.includes('નળ') || q.includes('લીકેજ') || q.includes('नल')){
-    return KNOWLEDGE.plumber;
-  }
-  if(q.includes('milk') || q.includes('dairy') || q.includes('dahi') || q.includes('curd') || q.includes('chaas') || q.includes('paneer') || q.includes('amul') || q.includes('દૂધ') || q.includes('દહીં') || q.includes('दूध')){
-    return KNOWLEDGE.dairy;
-  }
-  if(q.includes('ac') || q.includes('cool') || q.includes('fridge') || q.includes('gas') || q.includes('refrigerat') || q.includes('એસી') || q.includes('कूलिंग')){
-    return KNOWLEDGE.ac;
-  }
-  if(q.includes('print') || q.includes('xerox') || q.includes('station') || q.includes('pencil') || q.includes('pen') || q.includes('spiral') || q.includes('ઝેરોક્ષ') || q.includes('પ્રિન્ટ') || q.includes('प्रिंट')){
-    return KNOWLEDGE.xerox;
-  }
-  if(q.includes('punct') || q.includes('tyre') || q.includes('tire') || q.includes('bike') || q.includes('scooter') || q.includes('mechanic') || q.includes('પંચર') || q.includes('पंक्चर')){
-    return KNOWLEDGE.puncture;
-  }
-  if(q.includes('atta') || q.includes('besan') || q.includes('ration') || q.includes('kirana') || q.includes('grocery') || q.includes('subji') || q.includes('veg') || q.includes('કરિયાણું') || q.includes('રાશન') || q.includes('राशन')){
-    return KNOWLEDGE.grocery;
-  }
+function matchCategory(text){
+  const q = text.toLowerCase();
+  if(q.includes('sweep') || q.includes('clean') || q.includes('maid') || q.includes('safai') || q.includes('kamvali') || q.includes('કામવાળા') || q.includes('સફાઈ') || q.includes('housekeeping')) return KNOWLEDGE.sweeper;
+  if(q.includes('plumb') || q.includes('tap') || q.includes('leak') || q.includes('pipe') || q.includes('flush') || q.includes('નળ') || q.includes('લીકેજ')) return KNOWLEDGE.plumber;
+  if(q.includes('milk') || q.includes('dairy') || q.includes('dahi') || q.includes('curd') || q.includes('chaas') || q.includes('paneer') || q.includes('amul') || q.includes('દૂધ') || q.includes('દહીં')) return KNOWLEDGE.dairy;
+  if(q.includes('ac') || q.includes('cool') || q.includes('fridge') || q.includes('gas') || q.includes('refrigerat') || q.includes('એસી')) return KNOWLEDGE.ac;
+  if(q.includes('print') || q.includes('xerox') || q.includes('station') || q.includes('pencil') || q.includes('pen') || q.includes('spiral') || q.includes('ઝેરોક્ષ')) return KNOWLEDGE.xerox;
+  if(q.includes('punct') || q.includes('tyre') || q.includes('tire') || q.includes('bike') || q.includes('scooter') || q.includes('mechanic') || q.includes('પંચર')) return KNOWLEDGE.puncture;
+  if(q.includes('atta') || q.includes('besan') || q.includes('ration') || q.includes('kirana') || q.includes('grocery') || q.includes('subji') || q.includes('veg') || q.includes('કરિયાણું')) return KNOWLEDGE.grocery;
 
-  // Dynamic Synthesizer for any other input (e.g. "tutor", "electrician", "laptop")
   return {
-    title: query,
-    ack: `Got it! 👍 Looking for <b>${escapeHtml(query)}</b> near you.`,
-    foundText: `I found <b>2 verified local providers</b> for "${escapeHtml(query)}" nearby:`,
     cards: [
-      {av:'📍', avClass:'blue', name:`Satellite ${escapeHtml(query)} Expert`, sub:'Local verified provider · 5 yrs exp', rat:'4.8 (98)', dist:'0.8 km', price:'Best local rates'},
-      {av:'⭐', avClass:'peach', name:`Ahmedabad Quick ${escapeHtml(query)} Service`, sub:'Doorstep & store visit available', rat:'4.7 (64)', dist:'1.5 km', price:'Direct pricing'}
+      {av:'📍', avClass:'blue', name:`Satellite Verified ${escapeHtml(text.slice(0,24))} Expert`, sub:'Local verified provider · 5 yrs exp', rat:'4.8 (98)', dist:'0.8 km', price:'Direct rates'},
+      {av:'⭐', avClass:'peach', name:`Ahmedabad Quick ${escapeHtml(text.slice(0,20))} Service`, sub:'Doorstep & store visit available', rat:'4.7 (64)', dist:'1.5 km', price:'Best local price'}
     ],
     chips: ["⚡ Request Callback", "📍 Get Location", "💬 Chat Provider"]
   };
@@ -383,6 +366,42 @@ function matchIntent(query){
 
 function escapeHtml(str){
   return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// ── Multi-Model Gemini Engine ──────────────────────────────────
+async function queryGemini(userText){
+  const apiKey = localStorage.getItem('gotilo_ai_key') || DEFAULT_GEMINI_KEY;
+  const models = ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
+
+  // Add to conversation history
+  chatHistory.push({ role: 'user', parts: [{ text: userText }] });
+
+  for(const model of models){
+    try{
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const payload = {
+        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+        contents: chatHistory
+      };
+
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await resp.json();
+      if(json.candidates && json.candidates[0].content && json.candidates[0].content.parts[0].text){
+        const reply = json.candidates[0].content.parts[0].text.trim();
+        // Save model reply in history
+        chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+        return reply;
+      }
+    }catch(e){
+      console.warn(`Model ${model} attempt failed:`, e);
+    }
+  }
+  return null;
 }
 
 // ── Rendering Functions ────────────────────────────────────────
@@ -394,12 +413,24 @@ function addUserBubble(text){
   area.scrollTo({top:area.scrollHeight, behavior:'smooth'});
 }
 
-function addGotiloBubble(html){
+function addGotiloBubble(text){
+  let cleanText = text;
+  let customChips = [];
+  const chipMatch = text.match(/\[CHIPS:\s*(.*?)\]/i);
+  if(chipMatch){
+    cleanText = text.replace(chipMatch[0], '').trim();
+    customChips = chipMatch[1].split('|').map(s=>s.trim()).filter(Boolean);
+  }
+
+  cleanText = cleanText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
   const row = document.createElement('div');
   row.className = 'msg-row-g';
-  row.innerHTML = `<div class="g-av">G</div><div class="bubble-g">${html}</div>`;
+  row.innerHTML = `<div class="g-av">G</div><div class="bubble-g">${cleanText}</div>`;
   area.appendChild(row);
   area.scrollTo({top:area.scrollHeight, behavior:'smooth'});
+
+  return customChips;
 }
 
 function showTyping(){
@@ -462,28 +493,7 @@ function renderChips(chips){
   area.scrollTo({top:area.scrollHeight, behavior:'smooth'});
 }
 
-// ── Handling Flow ──────────────────────────────────────────────
-async function callGeminiApi(apiKey, query){
-  try{
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-    const prompt = `You are Gotilo (ગોતીલો), a helpful hyperlocal assistant for Ahmedabad, India.
-User query: "${query}".
-Respond warmly in 1-2 short sentences in the user's language (English, Gujarati, or Hindi) confirming what they need and that you found nearby verified local shops/workers. Do not use asterisks or formatting.`;
-    const resp = await fetch(url, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
-    });
-    const json = await resp.json();
-    if(json.candidates && json.candidates[0].content.parts[0].text){
-      return json.candidates[0].content.parts[0].text;
-    }
-  }catch(e){
-    console.warn("Gemini API call fallback:", e);
-  }
-  return null;
-}
-
+// ── Query Execution Pipeline ───────────────────────────────────
 async function handleUserQuery(query){
   if(!query.trim()) return;
   addUserBubble(query);
@@ -491,33 +501,27 @@ async function handleUserQuery(query){
 
   showTyping();
 
-  const apiKey = localStorage.getItem('gotilo_ai_key');
-  let aiResponse = null;
-
-  if(apiKey){
-    aiResponse = await callGeminiApi(apiKey, query);
-  } else {
-    await new Promise(r => setTimeout(r, 700));
-  }
+  // Call live multi-turn Gemini API
+  const aiResponse = await queryGemini(query);
 
   hideTyping();
 
-  const data = matchIntent(query);
+  const localData = matchCategory(query);
 
   if(aiResponse){
-    addGotiloBubble(escapeHtml(aiResponse));
+    const extraChips = addGotiloBubble(aiResponse);
+    await new Promise(r => setTimeout(r, 300));
+    renderCards(localData.cards);
+    await new Promise(r => setTimeout(r, 300));
+    renderChips(extraChips.length > 0 ? extraChips : localData.chips);
   } else {
-    addGotiloBubble(data.ack);
+    // Graceful offline fallback
+    addGotiloBubble(`Got it! 👍 I found verified options for <strong>${escapeHtml(query)}</strong> nearby in Ahmedabad.`);
+    await new Promise(r => setTimeout(r, 300));
+    renderCards(localData.cards);
+    await new Promise(r => setTimeout(r, 300));
+    renderChips(localData.chips);
   }
-
-  await new Promise(r => setTimeout(r, 350));
-  addGotiloBubble(data.foundText);
-
-  await new Promise(r => setTimeout(r, 300));
-  renderCards(data.cards);
-
-  await new Promise(r => setTimeout(r, 400));
-  renderChips(data.chips);
 }
 
 function handleSend(){
@@ -534,29 +538,85 @@ function handleChipScenario(key, el){
   document.querySelectorAll('.s-chip').forEach(c => c.classList.remove('active'));
   if(el) el.classList.add('active');
   const queries = {
-    sweeper: "I need a sweeper / maid for home cleaning",
-    plumber: "My bathroom tap is leaking",
-    dairy: "Need 1L Amul Gold milk and curd",
+    sweeper: "I need a sweeper / maid for home cleaning in Satellite",
+    plumber: "My bathroom tap is leaking urgently",
+    dairy: "Need 1L Amul Gold milk and fresh dahi",
     ac: "My AC needs gas filling and service",
-    xerox: "Where can I get color xerox printout",
+    xerox: "Where can I get color xerox printouts",
     puncture: "Bike puncture repair doorstep",
-    grocery: "Atta and besan ration delivery"
+    grocery: "Atta and besan grocery delivery"
   };
   handleUserQuery(queries[key] || key);
 }
 
-function triggerVoice(){
+// ── Real Web Speech Voice Input ────────────────────────────────
+let recognition = null;
+function toggleVoiceRecognition(){
+  const mic = document.getElementById('micBtn');
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if(!SpeechRec){
+    inp.placeholder = "Listening simulated...";
+    showToast("Listening... (Speak your need)");
+    setTimeout(() => {
+      inp.value = "I need sweeper for house cleaning";
+      inp.placeholder = "Tell Gotilo what you need...";
+      setTimeout(() => handleSend(), 400);
+    }, 1200);
+    return;
+  }
+
+  if(recognition){
+    recognition.stop();
+    recognition = null;
+    mic.classList.remove('recording');
+    return;
+  }
+
+  recognition = new SpeechRec();
+  recognition.lang = 'gu-IN' || 'hi-IN' || 'en-IN';
+  recognition.interimResults = false;
+
+  mic.classList.add('recording');
   inp.placeholder = "Listening... Speak now 🎙️";
-  showToast("Listening... (Speak your need)");
-  setTimeout(() => {
-    inp.value = "I need sweeper for house cleaning";
+  showToast("🎙️ Listening (Gujarati, Hindi, English)...");
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    inp.value = transcript;
     inp.placeholder = "Tell Gotilo what you need...";
-    setTimeout(() => handleSend(), 500);
-  }, 1200);
+    mic.classList.remove('recording');
+    recognition = null;
+    setTimeout(() => handleSend(), 300);
+  };
+
+  recognition.onerror = () => {
+    mic.classList.remove('recording');
+    inp.placeholder = "Tell Gotilo what you need...";
+    recognition = null;
+  };
+
+  recognition.onend = () => {
+    mic.classList.remove('recording');
+    inp.placeholder = "Tell Gotilo what you need...";
+    recognition = null;
+  };
+
+  recognition.start();
+}
+
+function clearChatHistory(){
+  chatHistory = [];
+  area.innerHTML = '';
+  addGotiloBubble("Chat cleared! 👋 <strong>બસ કહો, ગોતીઢો.</strong><br>Tell me what you need in plain words (sweeper, plumber, milk, AC repair, xerox etc.) and I will find it nearby!");
+  renderChips(["🧹 I need a sweeper", "🔧 Bathroom tap leaking", "🥛 1L Milk & Dahi", "📄 Color Xerox & Print"]);
+  showToast("Chat history cleared 🧹");
 }
 
 // ── AI Key Modal ───────────────────────────────────────────────
 function openApiKeyModal(){
+  const saved = localStorage.getItem('gotilo_ai_key') || DEFAULT_GEMINI_KEY;
+  document.getElementById('apiKeyInput').value = saved;
   document.getElementById('aiModal').classList.add('active');
 }
 function closeAiModal(e){
@@ -566,9 +626,10 @@ function saveApiKey(){
   const k = document.getElementById('apiKeyInput').value.trim();
   if(k){
     localStorage.setItem('gotilo_ai_key', k);
-    showToast("Free AI Mode Enabled! ⚡");
+    showToast("Gemini API Key Saved! ⚡");
   } else {
-    showToast("Using Built-in Hyperlocal NLP Engine 🚀");
+    localStorage.removeItem('gotilo_ai_key');
+    showToast("Using Default Gemini Key 🚀");
   }
   document.getElementById('aiModal').classList.remove('active');
 }
@@ -580,15 +641,14 @@ function showToast(msg){
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-// ── On Page Load (URL query parameter parsing) ──────────────────
+// ── On Page Load ───────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const q = params.get('q');
   if(q){
     handleUserQuery(decodeURIComponent(q));
   } else {
-    // Default initial greeting
-    addGotiloBubble("Hey Harsh! 👋 <b>બસ કહો, ગોતીઢો.</b><br>Tell me what you need in plain words (sweeper, plumber, milk, AC repair, xerox, puncture etc.) and I will find it nearby!");
+    addGotiloBubble("Hey Harsh! 👋 <strong>બસ કહો, ગોતીઢો.</strong><br>I am your AI city companion powered by Google Gemini. Tell me what you need in plain words and I will find it nearby!");
     renderChips(["🧹 I need a sweeper", "🔧 Bathroom tap leaking", "🥛 1L Milk & Dahi", "📄 Color Xerox & Print"]);
   }
 });
