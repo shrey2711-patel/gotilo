@@ -1,175 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<title>Gotilo — Shop Profile</title>
-<meta name="theme-color" content="#F7F3EE"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<title>Shreeji Super Store &middot; 15-Min Quick Delivery &middot; Gotilo</title>
+<meta name="theme-color" content="#FFFFFF" id="metaThemeColor"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-:root{
-  --bg:#F6F2EC;--bg-subtle:#EFEAE2;--card:#FFFFFF;--card-alt:#FAF7F2;
-  --text-1:#181614;--text-2:#5E5A54;--text-3:#9E988F;
-  --accent:#E8590C;--accent-soft:#FFF2E8;--accent-deep:#C94A05;
-  --green:#15803D;--green-bg:#EDFBF1;--blue:#1D4ED8;--blue-bg:#EFF6FF;
-  --border:#E7E1D8;--border-light:#F0EBE3;
-  --sh-sm:0 2px 8px rgba(24,22,20,0.04);--sh-md:0 6px 20px rgba(24,22,20,0.06);
-  --radius-sm:10px;--radius-md:16px;--radius-lg:22px;--radius-full:9999px;
-  --font:'Plus Jakarta Sans','Noto Sans Gujarati',-apple-system,BlinkMacSystemFont,sans-serif;
+
+:root, [data-theme="light"] {
+  --bg-page:#FFFFFF;--bg-surface:#F8FAFC;--bg-card:#FFFFFF;--bg-subtle:#F1F5F9;
+  --border-light:#E2E8F0;--text-primary:#0F172A;--text-secondary:#475569;--text-muted:#94A3B8;
+  --accent-saffron:#FF6B00;--accent-soft:#FFF4ED;--green:#16A34A;--green-bg:#DCFCE7;
+  --nav-bg:rgba(255,255,255,0.96);--font-main:'Plus Jakarta Sans', 'Noto Sans Gujarati', sans-serif;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.05);--shadow-lg:0 10px 30px rgba(0,0,0,0.12);
 }
-html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text-1);display:flex;justify-content:center;align-items:flex-start;-webkit-font-smoothing:antialiased;}
-.app{width:100%;max-width:540px;height:100dvh;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.06);}
-
-.top-nav{
-  background:var(--card);padding:10px 16px;border-bottom:1px solid var(--border-light);
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:30;
-}
-.btn-circle{
-  width:36px;height:36px;border-radius:50%;background:var(--bg);
-  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--text-1);transition:all 0.15s;
-}
-.btn-circle:active{transform:scale(0.92);background:var(--border);}
-.nav-title{font-size:15px;font-weight:800;color:var(--text-1);}
-
-.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:90px;}
-.content::-webkit-scrollbar{display:none;}
-
-.shop-hero{
-  width:100%;height:180px;background:linear-gradient(135deg,#FEF08A,#FDE047);
-  display:flex;align-items:center;justify-content:center;position:relative;font-size:68px;flex-shrink:0;
-}
-.open-pill{
-  position:absolute;bottom:12px;left:14px;background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(6px);color:var(--green);border-radius:var(--radius-full);
-  padding:3px 10px;font-size:11px;font-weight:800;display:flex;align-items:center;gap:4px;
-}
-.op-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
-
-.shop-info{background:var(--card);padding:16px 18px;margin-bottom:12px;border-bottom:1px solid var(--border-light);}
-.shop-name{font-size:20px;font-weight:800;color:var(--text-1);margin-bottom:2px;}
-.shop-cat{font-size:13px;color:var(--text-2);margin-bottom:12px;}
-
-.shop-stats{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
-.stat-item{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.stat-val{font-size:16px;font-weight:800;color:var(--text-1);}
-.stat-label{font-size:11px;color:var(--text-3);}
-.stat-div{width:1px;height:28px;background:var(--border-light);}
-
-.shop-addr{display:flex;align-items:flex-start;gap:8px;padding-top:10px;border-top:1px dashed var(--border-light);font-size:12.5px;color:var(--text-2);}
-
-.action-btns{display:flex;gap:8px;padding:0 14px 14px;}
-.abtn{
-  flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;
-  cursor:pointer;font-size:11px;font-weight:700;color:var(--text-1);box-shadow:var(--sh-sm);
-  transition:all 0.15s;
-}
-.abtn:active{transform:scale(0.95);background:var(--accent-soft);border-color:var(--accent);}
-.abtn-icon{font-size:18px;}
-
-.section-box{background:var(--card);border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);padding:14px 18px;margin-bottom:12px;}
-.sec-title{font-size:15px;font-weight:800;color:var(--text-1);margin-bottom:10px;}
-
-.product-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-light);}
-.product-row:last-child{border-bottom:none;}
-.p-left{display:flex;align-items:center;gap:10px;}
-.p-emoji{font-size:22px;width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;}
-.p-name{font-size:13.5px;font-weight:700;color:var(--text-1);}
-.p-sub{font-size:11px;color:var(--text-3);}
-.p-price{font-size:13.5px;font-weight:800;color:var(--accent);}
-
-.bottom-cta{
-  position:absolute;bottom:0;left:0;right:0;background:var(--card);
-  border-top:1px solid var(--border-light);padding:10px 14px 18px;display:flex;gap:8px;z-index:40;
-}
-.cta-chat{
-  width:44px;height:44px;border-radius:13px;background:var(--bg);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;
-}
-.cta-primary{
-  flex:1;background:var(--accent);border:none;border-radius:13px;color:#fff;
-  font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(232,89,12,0.3);
+[data-theme="dark"] {
+  --bg-page:#0B0F17;--bg-surface:#111827;--bg-card:#161F30;--bg-subtle:#1E293B;
+  --border-light:#1E293B;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;
+  --accent-saffron:#FF6B00;--accent-soft:rgba(255,107,0,0.15);--green:#22C55E;--green-bg:rgba(34,197,94,0.18);
+  --nav-bg:rgba(17,24,39,0.96);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.4);--shadow-lg:0 10px 30px rgba(0,0,0,0.6);
 }
 
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--text-1);color:#fff;padding:10px 18px;border-radius:var(--radius-full);font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all 0.3s;pointer-events:none;}
-.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+html,body{min-height:100%;font-family:var(--font-main);background:var(--bg-page);color:var(--text-primary);display:flex;justify-content:center;-webkit-font-smoothing:antialiased;}
+.app{width:100%;max-width:480px;min-height:100vh;background:var(--bg-page);display:flex;flex-direction:column;position:relative;box-shadow:0 0 40px rgba(0,0,0,0.06);}
+
+.top-bar{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--bg-page);position:sticky;top:0;z-index:40;border-bottom:1px solid var(--border-light);}
+.back-btn{width:36px;height:36px;border-radius:50%;background:var(--bg-subtle);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-primary);}
+.store-header{display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--bg-surface);border-bottom:1px solid var(--border-light);}
+.store-img{width:64px;height:64px;border-radius:14px;object-fit:cover;}
+.store-badge{display:inline-flex;align-items:center;gap:4px;background:var(--green-bg);color:var(--green);font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:9999px;margin-bottom:3px;}
+
+.delivery-pill-bar{background:linear-gradient(90deg,#FF6B00,#FF8C38);color:#fff;padding:8px 16px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:space-between;}
+
+.cat-scroll{display:flex;gap:8px;padding:12px 20px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border-light);}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.cat-pill{background:var(--bg-subtle);border:1px solid var(--border-light);padding:6px 14px;border-radius:9999px;font-size:12.5px;font-weight:700;color:var(--text-secondary);white-space:nowrap;cursor:pointer;}
+.cat-pill.active{background:var(--accent-saffron);color:#fff;border-color:var(--accent-saffron);}
+
+.items-grid{padding:16px 20px 100px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.item-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:16px;padding:10px;display:flex;flex-direction:column;position:relative;box-shadow:var(--shadow-sm);}
+.item-img{width:100%;height:110px;object-fit:cover;border-radius:10px;margin-bottom:8px;}
+.item-name{font-size:13px;font-weight:800;color:var(--text-primary);line-height:1.2;margin-bottom:2px;}
+.item-weight{font-size:11px;color:var(--text-muted);margin-bottom:8px;}
+.item-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.item-price{font-size:14px;font-weight:800;color:var(--text-primary);}
+.add-btn{background:var(--accent-soft);border:1px solid var(--accent-saffron);color:var(--accent-saffron);font-size:12px;font-weight:800;padding:6px 14px;border-radius:8px;cursor:pointer;}
+.add-btn:active{background:var(--accent-saffron);color:#fff;}
+.qty-stepper{display:none;align-items:center;gap:6px;background:var(--accent-saffron);color:#fff;border-radius:8px;padding:3px 8px;font-size:12.5px;font-weight:800;}
+.qty-stepper button{background:none;border:none;color:#fff;font-weight:800;font-size:14px;cursor:pointer;padding:0 3px;}
+
+.cart-float-bar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:448px;background:var(--accent-saffron);color:#fff;border-radius:16px;padding:12px 18px;display:none;align-items:center;justify-content:space-between;box-shadow:var(--shadow-lg);z-index:50;cursor:pointer;}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(3px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+.modal-bg.active{display:flex;}
+.modal-box{width:100%;max-width:480px;background:var(--bg-card);border-radius:24px 24px 0 0;padding:20px 20px 32px;max-height:85vh;overflow-y:auto;}
 </style>
 </head>
+
 <body>
 <div class="app">
-  <div class="top-nav">
-    <div class="btn-circle" onclick="history.back()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </div>
-    <span class="nav-title">Shop Details</span>
-    <div class="btn-circle" onclick="showToast('Shop link copied!')">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+  <div class="top-bar">
+    <div class="back-btn" onclick="window.location.href='index.html'">←</div>
+    <div style="font-size:15px;font-weight:800;">Shreeji Super Store</div>
+    <div class="back-btn" onclick="window.location.href='chat.html?q=Shreeji+Super+Store'">💬</div>
+  </div>
+
+  <div class="store-header">
+    <img class="store-img" src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=400&q=80" alt="Store"/>
+    <div>
+      <span class="store-badge">● OPEN NOW &middot; 0.8 KM</span>
+      <div style="font-size:17px;font-weight:800;color:var(--text-primary);">Shreeji Super Store</div>
+      <div style="font-size:12px;color:var(--text-secondary);">Daily Kirana, Amul Milk &middot; ★ 4.3 (186 reviews)</div>
     </div>
   </div>
 
-  <div class="content">
-    <div class="shop-hero">
-      <div class="open-pill"><span class="op-dot"></span> OPEN NOW</div>
-      🥛
+  <div class="delivery-pill-bar">
+    <span>⚡ Instant Delivery in 12-15 mins</span>
+    <span>Surat / Ahmedabad</span>
+  </div>
+
+  <div class="cat-scroll">
+    <div class="cat-pill active" onclick="setCategory(this, 'all')">All Items</div>
+    <div class="cat-pill" onclick="setCategory(this, 'dairy')">🥛 Dairy &amp; Milk</div>
+    <div class="cat-pill" onclick="setCategory(this, 'kirana')">🌾 Daily Kirana</div>
+    <div class="cat-pill" onclick="setCategory(this, 'snacks')">🍪 Snacks &amp; Namkeen</div>
+    <div class="cat-pill" onclick="setCategory(this, 'drinks')">🥤 Cold Drinks</div>
+  </div>
+
+  <div class="items-grid" id="itemsGrid">
+    <div class="item-card" data-id="1" data-name="Amul Gold Full Cream Milk" data-price="33">
+      <img class="item-img" src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80"/>
+      <div class="item-name">Amul Gold Milk</div>
+      <div class="item-weight">500 ml pouch</div>
+      <div class="item-foot">
+        <span class="item-price">₹33</span>
+        <button class="add-btn" onclick="addItem(1, this)">+ ADD</button>
+        <div class="qty-stepper"><button onclick="subItem(1)">-</button><span class="q-val">1</span><button onclick="addItem(1)">+</button></div>
+      </div>
     </div>
 
-    <div class="shop-info">
-      <div class="shop-name">Amul Daily Dairy &amp; Baker's Hub</div>
-      <div class="shop-cat">Dairy, Milk, Bakery &amp; Everyday Fresh Goods</div>
-      <div class="shop-stats">
-        <div class="stat-item"><span class="stat-val">★ 4.9</span><span class="stat-label">510 Reviews</span></div>
-        <div class="stat-div"></div>
-        <div class="stat-item"><span class="stat-val">0.3 km</span><span class="stat-label">Satellite</span></div>
-        <div class="stat-div"></div>
-        <div class="stat-item"><span class="stat-val">Free</span><span class="stat-label">Drop ₹150+</span></div>
+    <div class="item-card" data-id="2" data-name="Amul Taaza Toned Milk" data-price="27">
+      <img class="item-img" src="https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=300&q=80"/>
+      <div class="item-name">Amul Taaza Milk</div>
+      <div class="item-weight">500 ml pouch</div>
+      <div class="item-foot">
+        <span class="item-price">₹27</span>
+        <button class="add-btn" onclick="addItem(2, this)">+ ADD</button>
+        <div class="qty-stepper"><button onclick="subItem(2)">-</button><span class="q-val">1</span><button onclick="addItem(2)">+</button></div>
       </div>
-      <div class="shop-addr">📍 Shop 4, Shyamal Cross Roads, Satellite, Ahmedabad</div>
     </div>
 
-    <div class="action-btns">
-      <div class="abtn" onclick="showToast('Calling: +91 98980 11223')"><span class="abtn-icon">📞</span>Call Store</div>
-      <div class="abtn" onclick="showToast('Opening Google Maps')"><span class="abtn-icon">📍</span>Directions</div>
-      <div class="abtn" onclick="window.location.href='chat.html?q=Amul+milk+delivery'"><span class="abtn-icon">💬</span>Chat Gotilo</div>
-      <div class="abtn" onclick="showToast('Saved to Favourites!')"><span class="abtn-icon">❤️</span>Save</div>
+    <div class="item-card" data-id="3" data-name="Fortune Sunlite Sunflower Oil" data-price="138">
+      <img class="item-img" src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80"/>
+      <div class="item-name">Fortune Sunlite Oil</div>
+      <div class="item-weight">1 Liter Pouch</div>
+      <div class="item-foot">
+        <span class="item-price">₹138</span>
+        <button class="add-btn" onclick="addItem(3, this)">+ ADD</button>
+        <div class="qty-stepper"><button onclick="subItem(3)">-</button><span class="q-val">1</span><button onclick="addItem(3)">+</button></div>
+      </div>
     </div>
 
-    <div class="section-box">
-      <div class="sec-title">Daily Items in Stock</div>
-      <div class="product-row">
-        <div class="p-left"><div class="p-emoji">🥛</div><div><div class="p-name">Amul Gold Milk (500ml / 1L)</div><div class="p-sub">Fresh pouch in stock</div></div></div>
-        <div class="p-price">₹66 / L</div>
-      </div>
-      <div class="product-row">
-        <div class="p-left"><div class="p-emoji">🥣</div><div><div class="p-name">Amul Masti Dahi (400g / 1kg)</div><div class="p-sub">Fresh curd</div></div></div>
-        <div class="p-price">₹35</div>
-      </div>
-      <div class="product-row">
-        <div class="p-left"><div class="p-emoji">🧈</div><div><div class="p-name">Amul Fresh Paneer (200g)</div><div class="p-sub">Soft &amp; fresh</div></div></div>
-        <div class="p-price">₹90</div>
-      </div>
-      <div class="product-row">
-        <div class="p-left"><div class="p-emoji">🍞</div><div><div class="p-name">Fresh Brown &amp; White Bread</div><div class="p-sub">Daily bakery supply</div></div></div>
-        <div class="p-price">₹30</div>
+    <div class="item-card" data-id="4" data-name="Aashirvaad Shudh Chakki Atta" data-price="245">
+      <img class="item-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80"/>
+      <div class="item-name">Aashirvaad Atta</div>
+      <div class="item-weight">5 kg bag</div>
+      <div class="item-foot">
+        <span class="item-price">₹245</span>
+        <button class="add-btn" onclick="addItem(4, this)">+ ADD</button>
+        <div class="qty-stepper"><button onclick="subItem(4)">-</button><span class="q-val">1</span><button onclick="addItem(4)">+</button></div>
       </div>
     </div>
   </div>
 
-  <div class="bottom-cta">
-    <div class="cta-chat" onclick="window.location.href='chat.html?q=Amul+milk+order'">💬</div>
-    <button class="cta-primary" onclick="showToast('Order request broadcasted to shop! ⚡')">Order Home Delivery</button>
+  <div class="cart-float-bar" id="cartBar" onclick="openCheckout()">
+    <div><div style="font-size:12px;opacity:0.9;" id="cartSummaryText">2 Items &middot; ₹60</div><div style="font-size:14px;font-weight:800;">View Cart &amp; Place 15-Min Order ⚡</div></div>
+    <div style="font-size:18px;font-weight:800;">›</div>
   </div>
 </div>
-<div id="toast" class="toast">Action</div>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="modal-bg" onclick="closeCheckout(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="font-size:18px;font-weight:800;margin-bottom:4px;color:var(--text-primary);">Instant 15-Min Checkout ⚡</div>
+    <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:14px;">Delivery to: Flat 402, Shivam Residency, Surat</div>
+    <div id="cartItemsList" style="margin-bottom:16px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="border-top:1px solid var(--border-light);padding-top:12px;display:flex;justify-content:space-between;font-weight:800;font-size:16px;margin-bottom:18px;">
+      <span>Total Amount:</span><span id="cartTotalPrice" style="color:var(--accent-saffron);">₹0</span>
+    </div>
+    <button style="width:100%;padding:14px;background:var(--accent-saffron);border:none;border-radius:14px;color:#fff;font-weight:800;font-size:15px;cursor:pointer;" onclick="placeOrder()">Place Instant Order (COD / UPI) ⚡</button>
+  </div>
+</div>
+
 <script>
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
+const products = {
+  1: {name: 'Amul Gold Milk', price: 33},
+  2: {name: 'Amul Taaza Milk', price: 27},
+  3: {name: 'Fortune Sunlite Oil', price: 138},
+  4: {name: 'Aashirvaad Atta', price: 245}
+};
+let cart = {};
+
+function initTheme(){
+  const theme = localStorage.getItem('gotilo_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', theme);
 }
+
+function addItem(id, btn){
+  cart[id] = (cart[id] || 0) + 1;
+  updateUI(id);
+}
+function subItem(id){
+  if(cart[id]){
+    cart[id]--;
+    if(cart[id] <= 0) delete cart[id];
+  }
+  updateUI(id);
+}
+function updateUI(id){
+  const card = document.querySelector(`.item-card[data-id="${id}"]`);
+  if(!card) return;
+  const btn = card.querySelector('.add-btn');
+  const stepper = card.querySelector('.qty-stepper');
+  const val = card.querySelector('.q-val');
+  const count = cart[id] || 0;
+  if(count > 0){
+    btn.style.display = 'none';
+    stepper.style.display = 'flex';
+    val.textContent = count;
+  } else {
+    btn.style.display = 'block';
+    stepper.style.display = 'none';
+  }
+  updateCartBar();
+}
+
+function updateCartBar(){
+  const bar = document.getElementById('cartBar');
+  const ids = Object.keys(cart);
+  if(ids.length === 0){
+    bar.style.display = 'none';
+    return;
+  }
+  let totalQty = 0;
+  let totalPrice = 0;
+  ids.forEach(id=>{
+    const q = cart[id];
+    totalQty += q;
+    totalPrice += q * products[id].price;
+  });
+  document.getElementById('cartSummaryText').textContent = `${totalQty} Items · ₹${totalPrice}`;
+  document.getElementById('cartTotalPrice').textContent = `₹${totalPrice}`;
+  bar.style.display = 'flex';
+}
+
+function openCheckout(){
+  const list = document.getElementById('cartItemsList');
+  list.innerHTML = '';
+  Object.keys(cart).forEach(id=>{
+    const p = products[id];
+    const q = cart[id];
+    list.innerHTML += `<div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--text-primary);"><span>${p.name} × ${q}</span><span style="font-weight:700;">₹${p.price * q}</span></div>`;
+  });
+  document.getElementById('checkoutModal').classList.add('active');
+}
+function closeCheckout(e){
+  document.getElementById('checkoutModal').classList.remove('active');
+}
+function placeOrder(){
+  document.getElementById('checkoutModal').classList.remove('active');
+  cart = {};
+  document.querySelectorAll('.add-btn').forEach(b=>b.style.display='block');
+  document.querySelectorAll('.qty-stepper').forEach(s=>s.style.display='none');
+  updateCartBar();
+  alert('🎉 Order Placed Successfully! Delivery partner is arriving at your door in 12 minutes.');
+}
+function setCategory(el, cat){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+}
+window.addEventListener('DOMContentLoaded', initTheme);
 </script>
 </body>
 </html>

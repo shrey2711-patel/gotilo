@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
-<title>Gotilo — બસ કહો, ગોતીલો.</title>
+<title>Gotilo — Community Skill &amp; Service Network</title>
 <meta name="application-name" content="Gotilo"/>
 <meta name="theme-color" content="#FFFFFF" id="metaThemeColor"/>
 <link rel="manifest" href="manifest.webmanifest"/>
@@ -26,6 +26,7 @@
   --text-muted:     #94A3B8;
   --accent-saffron: #FF6B00;
   --accent-soft:    #FFF4ED;
+  --accent-hover:   #EA580C;
   --logo-color:     #FF6B00; /* Saffron in Light Theme */
   --logo-sub-color: #FF6B00;
   --green:          #16A34A;
@@ -39,7 +40,7 @@
   --deal-banner-bg: linear-gradient(135deg, #FFF1E7 0%, #FFE5D3 100%);
   --deal-banner-text: #1E293B;
   --deal-badge-bg:  #FF6B00;
-  --font-main:      'Plus Jakarta Sans', 'Noto Sans Gujarati', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-main:      'Plus Jakarta Sans', 'Noto Sans Gujarati', -apple-system, sans-serif;
 }
 
 [data-theme="dark"] {
@@ -55,6 +56,7 @@
   --text-muted:     #64748B;
   --accent-saffron: #FF6B00;
   --accent-soft:    rgba(255,107,0,0.15);
+  --accent-hover:   #FF8533;
   --logo-color:     #FFFFFF; /* White in Dark Theme */
   --logo-sub-color: #F8FAFC;
   --green:          #22C55E;
@@ -71,10 +73,10 @@
 }
 
 html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-main);background:var(--bg-page);color:var(--text-primary);-webkit-font-smoothing:antialiased;transition:background 0.25s, color 0.25s;}
-.app{width:100%;max-width:480px;min-height:100vh;min-height:100dvh;margin:0 auto;background:var(--bg-page);display:flex;flex-direction:column;position:relative;box-shadow:0 0 50px rgba(0,0,0,0.06);}
+.app{width:100%;max-width:480px;min-height:100vh;margin:0 auto;background:var(--bg-page);display:flex;flex-direction:column;position:relative;box-shadow:0 0 50px rgba(0,0,0,0.06);}
 @media(max-width:540px){.app{max-width:100%;box-shadow:none;}}
 
-/* Top Header */
+/* Header */
 .top-header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:var(--bg-page);position:sticky;top:0;z-index:40;transition:background 0.25s;}
 .header-left{display:flex;align-items:center;gap:12px;}
 .hamburger-btn{background:none;border:none;padding:4px;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:28px;}
@@ -101,9 +103,21 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
 /* Hero */
-.hero-text-block{margin:10px 0 18px;}
-.hero-h1{font-size:28px;font-weight:800;letter-spacing:-0.8px;line-height:1.2;color:var(--text-primary);}
+.hero-text-block{margin:10px 0 16px;}
+.hero-h1{font-size:27px;font-weight:800;letter-spacing:-0.8px;line-height:1.2;color:var(--text-primary);}
 .hero-h1 span.highlight{color:var(--accent-saffron);display:block;}
+
+/* Primary Two Actions Gateway */
+.gateway-dual-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.gateway-card{border-radius:18px;padding:14px 12px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.15s, box-shadow 0.15s;position:relative;overflow:hidden;}
+.gateway-card:active{transform:scale(0.97);}
+.gateway-card.offer{background:linear-gradient(135deg, #FFF4ED 0%, #FFE2D1 100%);border:1.5px solid #FFD0B5;color:#9A3412;}
+[data-theme="dark"] .gateway-card.offer{background:linear-gradient(135deg, #2D180F 0%, #3D1E0E 100%);border-color:#5A2B15;color:#FFA970;}
+.gateway-card.explore{background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);border:1.5px solid #BBF7D0;color:#166534;}
+[data-theme="dark"] .gateway-card.explore{background:linear-gradient(135deg, #0F281E 0%, #133929 100%);border-color:#1E533C;color:#86EFAC;}
+.gw-icon{font-size:26px;margin-bottom:8px;}
+.gw-title{font-size:14px;font-weight:800;line-height:1.25;margin-bottom:4px;}
+.gw-sub{font-size:11px;opacity:0.85;font-weight:600;}
 
 /* Search */
 .search-bar-box{background:var(--bg-input);border:1.5px solid var(--border-light);border-radius:9999px;padding:6px 6px 6px 18px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);transition:all 0.2s;margin-bottom:12px;}
@@ -116,11 +130,36 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 .sb-mic-btn.recording{background:var(--accent-saffron);color:#fff;animation:pulseMic 1.2s infinite;}
 @keyframes pulseMic{0%,100%{transform:scale(1);}50%{transform:scale(1.1);box-shadow:0 0 12px rgba(255,107,0,0.5);}}
 
-/* Chips */
-.search-pills-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:24px;padding-bottom:2px;}
+/* Pills */
+.search-pills-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:22px;padding-bottom:2px;}
 .search-pills-row::-webkit-scrollbar{display:none;}
 .search-pill{background:var(--bg-page);border:1px solid var(--border-light);border-radius:9999px;padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--text-secondary);white-space:nowrap;display:flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.15s;flex-shrink:0;}
 .search-pill:active{border-color:var(--accent-saffron);color:var(--accent-saffron);background:var(--accent-soft);}
+
+/* Directory Filters */
+.dir-filter-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:2px;}
+.dir-filter-row::-webkit-scrollbar{display:none;}
+.dir-pill{background:var(--bg-subtle);border:1px solid var(--border-light);color:var(--text-secondary);font-size:12px;font-weight:700;padding:6px 12px;border-radius:9999px;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.dir-pill.active{background:var(--accent-saffron);color:#fff;border-color:var(--accent-saffron);}
+
+/* Citizen Capability Cards */
+.citizen-cards-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.cit-card{background:var(--bg-card);border:1px solid var(--border-light);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-sm);transition:all 0.15s;}
+.cit-card-top{display:flex;align-items:center;gap:12px;}
+.cit-card-avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--accent-saffron);}
+.cit-card-info{flex:1;min-width:0;}
+.cit-card-name-row{display:flex;align-items:center;gap:6px;}
+.cit-card-name{font-size:14.5px;font-weight:800;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cit-v-badge{background:var(--accent-saffron);color:#fff;font-size:10px;padding:1px 5px;border-radius:9999px;font-weight:800;}
+.cit-card-profession{font-size:12.5px;font-weight:700;color:var(--accent-saffron);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cit-card-loc{font-size:11.5px;color:var(--text-muted);display:flex;align-items:center;gap:4px;}
+.cit-skills-row{display:flex;flex-wrap:wrap;gap:4px;}
+.cit-skill-mini{background:var(--bg-subtle);color:var(--text-secondary);font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;}
+.cit-card-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-light);padding-top:10px;margin-top:2px;}
+.cit-price{font-size:13px;font-weight:800;color:var(--text-primary);}
+.cit-actions{display:flex;gap:6px;}
+.cit-btn-call{background:var(--bg-subtle);border:1px solid var(--border-light);color:var(--text-primary);padding:6px 12px;border-radius:9999px;font-size:12px;font-weight:700;cursor:pointer;}
+.cit-btn-chat{background:var(--accent-saffron);border:none;color:#fff;padding:6px 12px;border-radius:9999px;font-size:12px;font-weight:700;cursor:pointer;}
 
 /* Sections */
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
@@ -189,6 +228,12 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 .modal-bg.active{display:flex;}
 .modal-sheet-box{width:100%;max-width:480px;background:var(--bg-card);border-radius:24px 24px 0 0;padding:20px 20px 32px;max-height:85vh;overflow-y:auto;color:var(--text-primary);}
 .sheet-bar{width:38px;height:4px;background:var(--border-light);border-radius:4px;margin:0 auto 16px;}
+
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px;color:var(--text-primary);}
+.form-input{width:100%;border:1px solid var(--border-light);background:var(--bg-subtle);padding:10px 14px;border-radius:12px;font-size:13.5px;color:var(--text-primary);outline:none;font-family:inherit;}
+.form-input:focus{border-color:var(--accent-saffron);}
+
 .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--text-primary);color:var(--bg-page);padding:10px 18px;border-radius:9999px;font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all 0.3s;pointer-events:none;box-shadow:var(--shadow-lg);}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 </style>
@@ -232,6 +277,24 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
         </div>
       </div>
 
+      <!-- ── TWO PRIMARY ACTIONS GATEWAY ── -->
+      <div class="gateway-dual-cards">
+        <div class="gateway-card offer" onclick="openProfessionModal()">
+          <div>
+            <div class="gw-icon">🛠️</div>
+            <div class="gw-title">Log In Your Profession</div>
+            <div class="gw-sub">Offer skills &amp; get contacted by fellow citizens</div>
+          </div>
+        </div>
+        <div class="gateway-card explore" onclick="focusSearch()">
+          <div>
+            <div class="gw-icon">🔍</div>
+            <div class="gw-title">Explore What You Need</div>
+            <div class="gw-sub">Discover local people, skills &amp; services</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Search Input -->
       <div class="search-bar-box">
         <div class="sb-icon">
@@ -256,6 +319,77 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
         <div class="search-pill" onclick="executeSearch('Cake for today evening')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           Cake for today evening
+        </div>
+      </div>
+
+      <!-- ── LIVING DIRECTORY OF CITY CAPABILITIES ── -->
+      <div class="section-header">
+        <span class="section-title">City Skills &amp; Capabilities</span>
+        <span class="section-link" onclick="openProfessionModal()">+ Add Your Skill</span>
+      </div>
+
+      <div class="dir-filter-row">
+        <div class="dir-pill active" onclick="filterDirectory('all', this)">All Capabilities</div>
+        <div class="dir-pill" onclick="filterDirectory('repairs', this)">🔧 Repairs &amp; Home</div>
+        <div class="dir-pill" onclick="filterDirectory('tech', this)">💻 Tech &amp; Design</div>
+        <div class="dir-pill" onclick="filterDirectory('food', this)">🍲 Food &amp; Cooking</div>
+        <div class="dir-pill" onclick="filterDirectory('beauty', this)">✨ Beauty &amp; Art</div>
+        <div class="dir-pill" onclick="filterDirectory('tutors', this)">📚 Tutors &amp; Lessons</div>
+      </div>
+
+      <div class="citizen-cards-grid" id="citizenDirectoryList">
+        <!-- Citizen 1 -->
+        <div class="cit-card" data-cat="beauty" onclick="window.location.href='citizen.html'">
+          <div class="cit-card-top">
+            <img class="cit-card-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Pooja Trivedi"/>
+            <div class="cit-card-info">
+              <div class="cit-card-name-row">
+                <span class="cit-card-name">Pooja Trivedi</span>
+                <span class="cit-v-badge">✓ Verified</span>
+              </div>
+              <div class="cit-card-profession">Bridal Mehendi &amp; Styling</div>
+              <div class="cit-card-loc">📍 Vesu, Surat &middot; ★ 4.9 (128) &middot; ● Available</div>
+            </div>
+          </div>
+          <div class="cit-skills-row">
+            <span class="cit-skill-mini">Arabic Patterns</span>
+            <span class="cit-skill-mini">Organic Cones</span>
+            <span class="cit-skill-mini">Doorstep Visit</span>
+          </div>
+          <div class="cit-card-bottom">
+            <div class="cit-price">From ₹250 / hand</div>
+            <div class="cit-actions" onclick="event.stopPropagation()">
+              <button class="cit-btn-call" onclick="showToast('Calling Pooja: +91 98790 44321')">📞 Call</button>
+              <button class="cit-btn-chat" onclick="window.location.href='chat.html?q=Book+Pooja+Trivedi'">⚡ Request</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Citizen 2 -->
+        <div class="cit-card" data-cat="repairs" onclick="window.location.href='professional.html'">
+          <div class="cit-card-top">
+            <img class="cit-card-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rajesh Prajapati"/>
+            <div class="cit-card-info">
+              <div class="cit-card-name-row">
+                <span class="cit-card-name">Rajesh Prajapati</span>
+                <span class="cit-v-badge">✓ Verified</span>
+              </div>
+              <div class="cit-card-profession">Plumbing &amp; Solar Water Heater Specialist</div>
+              <div class="cit-card-loc">📍 Adajan, Surat &middot; ★ 4.8 (94) &middot; ● Available</div>
+            </div>
+          </div>
+          <div class="cit-skills-row">
+            <span class="cit-skill-mini">Emergency Leak Repair</span>
+            <span class="cit-skill-mini">Bathroom Fittings</span>
+            <span class="cit-skill-mini">Motor Repair</span>
+          </div>
+          <div class="cit-card-bottom">
+            <div class="cit-price">₹199 visit fee</div>
+            <div class="cit-actions" onclick="event.stopPropagation()">
+              <button class="cit-btn-call" onclick="showToast('Calling Rajesh: +91 98250 88776')">📞 Call</button>
+              <button class="cit-btn-chat" onclick="window.location.href='chat.html?q=Book+Rajesh+Plumber'">⚡ Request</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -302,7 +436,7 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
             <div><div class="card-name">Patel Car Care</div><div class="card-meta-line">Car Service &middot; 1.2 km</div><div class="card-rating">★ 4.7</div></div>
           </div>
         </div>
-        <div class="explore-card" onclick="window.location.href='shop.html'">
+        <div class="explore-card" onclick="window.location.href='citizen.html'">
           <img class="explore-card-img" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80" alt="Healora Clinic"/>
           <div class="explore-card-overlay">
             <div class="card-top-row"><span class="badge-open">Open</span><div class="fav-heart-btn" onclick="toggleFav(event, this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div></div>
@@ -342,21 +476,21 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 
     <!-- TAB: SEARCH -->
     <section id="tab-search" class="tab-view">
-      <div class="section-header" style="margin-top:8px;"><span class="section-title">Search &amp; AI Assist</span></div>
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Search &amp; AI Matchmaker</span></div>
       <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:18px;padding:18px;margin-bottom:16px;text-align:center;">
         <div style="font-size:36px;margin-bottom:8px;">🤖</div>
-        <div style="font-size:16px;font-weight:800;margin-bottom:4px;">Ask Gotilo AI Assistant</div>
-        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Tell Gotilo in plain English, Gujarati or Hindi what you need.</div>
-        <button style="background:var(--accent-saffron);color:#fff;border:none;padding:11px 22px;border-radius:9999px;font-size:13.5px;font-weight:800;cursor:pointer;" onclick="window.location.href='chat.html'">Open AI Chatbot ⚡</button>
+        <div style="font-size:16px;font-weight:800;margin-bottom:4px;">Ask Gotilo Skill Matchmaker</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Describe any task in English, Gujarati or Hindi. Gotilo finds the right citizen skill for you.</div>
+        <button style="background:var(--accent-saffron);color:#fff;border:none;padding:11px 22px;border-radius:9999px;font-size:13.5px;font-weight:800;cursor:pointer;" onclick="window.location.href='chat.html'">Open AI Matchmaker ⚡</button>
       </div>
     </section>
 
     <!-- TAB: FAVORITES -->
     <section id="tab-favorites" class="tab-view">
-      <div class="section-header" style="margin-top:8px;"><span class="section-title">Saved Places &amp; Pros</span></div>
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Saved Citizens &amp; Places</span></div>
       <div id="favoritesList" style="display:flex;flex-direction:column;gap:10px;">
         <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;">
-          <div><div style="font-size:14px;font-weight:800;">The Coffee House</div><div style="font-size:12px;color:var(--text-secondary);">Cafe &middot; 0.6 km &middot; ★ 4.6</div></div>
+          <div><div style="font-size:14px;font-weight:800;">Pooja Trivedi (Bridal Mehendi)</div><div style="font-size:12px;color:var(--text-secondary);">Vesu, Surat &middot; ★ 4.9 &middot; ● Available</div></div>
           <span style="color:#EF4444;font-size:18px;">❤️</span>
         </div>
       </div>
@@ -364,17 +498,17 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 
     <!-- TAB: ORDERS -->
     <section id="tab-orders" class="tab-view">
-      <div class="section-header" style="margin-top:8px;"><span class="section-title">Active Orders &amp; Requests</span></div>
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Active Requests &amp; Inquiries</span></div>
       <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:18px;padding:16px;margin-bottom:14px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-          <span style="background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800;padding:2px 8px;border-radius:9999px;">● ON THE WAY</span>
-          <span style="font-size:11.5px;font-weight:700;color:var(--text-muted);">~10 mins</span>
+          <span style="background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800;padding:2px 8px;border-radius:9999px;">● CONFIRMED</span>
+          <span style="font-size:11.5px;font-weight:700;color:var(--text-muted);">Today 4:00 PM</span>
         </div>
-        <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Rajesh Plumbing Works</div>
-        <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px;">Tap leak repair visit &middot; Surat / Ahmedabad</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Rajesh Prajapati (Plumbing Visit)</div>
+        <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px;">Solar heater valve inspection &middot; Surat</div>
         <div style="display:flex;gap:8px;">
           <button style="flex:1;padding:9px;background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:10px;font-size:12.5px;font-weight:700;color:var(--text-primary);cursor:pointer;" onclick="showToast('Calling: +91 98250 88776')">📞 Call</button>
-          <button style="flex:1;padding:9px;background:var(--accent-saffron);border:none;border-radius:10px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;" onclick="window.location.href='chat.html?q=Track+Plumber'">💬 Chat Live</button>
+          <button style="flex:1;padding:9px;background:var(--accent-saffron);border:none;border-radius:10px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;" onclick="window.location.href='chat.html?q=Track+Rajesh+Plumbing'">💬 Chat Live</button>
         </div>
       </div>
     </section>
@@ -383,8 +517,11 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
     <section id="tab-profile" class="tab-view">
       <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:20px;padding:20px;text-align:center;margin-bottom:16px;">
         <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#FF6B00,#FFA970);color:#fff;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 4px 14px rgba(255,107,0,0.3);">H</div>
-        <div style="font-size:18px;font-weight:800;">Harsh Patel</div>
-        <div style="font-size:13px;color:var(--text-muted);margin-top:2px;">+91 98980 12345 &middot; Surat / Ahmedabad</div>
+        <div style="font-size:18px;font-weight:800;" id="profUserName">Harsh Patel</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:2px;">Citizen of Surat &middot; +91 98980 12345</div>
+        <div style="margin-top:12px;">
+          <button style="background:var(--accent-saffron);color:#fff;border:none;padding:8px 16px;border-radius:9999px;font-size:12px;font-weight:800;cursor:pointer;" onclick="openProfessionModal()">⚙️ Edit My Profession / Skill</button>
+        </div>
       </div>
       <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:16px;overflow:hidden;margin-bottom:14px;">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border-light);cursor:pointer;" onclick="toggleTheme()">
@@ -439,12 +576,59 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
     </div>
     <div class="drawer-menu-list">
       <div class="drawer-menu-item" onclick="switchTab('home');closeDrawer();">🏠 Home</div>
-      <div class="drawer-menu-item" onclick="window.location.href='chat.html'">🤖 AI Hyperlocal Chatbot</div>
+      <div class="drawer-menu-item" onclick="openProfessionModal();closeDrawer();">🛠️ Log In Your Profession</div>
+      <div class="drawer-menu-item" onclick="window.location.href='chat.html'">🤖 AI Skill Matchmaker</div>
       <div class="drawer-menu-item" onclick="openLocationPicker()">📍 Change Location</div>
       <div class="drawer-menu-item" onclick="cycleLanguage()">🌐 Language</div>
-      <div class="drawer-menu-item" onclick="showToast('Switched to Business / Pro Mode 💼')">💼 Become a Vendor / Pro</div>
       <div class="drawer-menu-item" onclick="showToast('Support: support@gotilo.in')">📞 Help &amp; Support</div>
     </div>
+  </div>
+</div>
+
+<!-- ── LOG IN YOUR PROFESSION MODAL ── -->
+<div id="profModal" class="modal-bg" onclick="closeProfessionModal(event)">
+  <div class="modal-sheet-box" onclick="event.stopPropagation()">
+    <div class="sheet-bar"></div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Log In Your Profession / Skill 🛠️</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Make your capabilities discoverable to all citizens in your city.</div>
+    
+    <form onsubmit="submitProfession(event)">
+      <div class="form-group">
+        <label class="form-label">Your Full Name</label>
+        <input id="inputCitName" class="form-input" placeholder="e.g. Sneha Shah" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Profession / Capability Title</label>
+        <input id="inputCitTitle" class="form-input" placeholder="e.g. Graphic Designer &amp; UI Specialist" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select id="inputCitCat" class="form-input" style="background:var(--bg-subtle);">
+          <option value="tech">💻 Tech &amp; Design</option>
+          <option value="repairs">🔧 Repairs &amp; Home Services</option>
+          <option value="food">🍲 Food &amp; Cooking</option>
+          <option value="beauty">✨ Beauty &amp; Art</option>
+          <option value="tutors">📚 Tutors &amp; Lessons</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Locality &amp; City</label>
+        <input id="inputCitLoc" class="form-input" placeholder="e.g. Vesu, Surat" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / WhatsApp Number</label>
+        <input id="inputCitPhone" class="form-input" placeholder="+91 98765 43210" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Starting Price / Rate Tag</label>
+        <input id="inputCitPrice" class="form-input" placeholder="e.g. ₹500 / project or ₹200 / hr" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Key Skills (comma separated)</label>
+        <input id="inputCitSkills" class="form-input" placeholder="e.g. Logo Design, Figma, WordPress" required/>
+      </div>
+      <button type="submit" style="width:100%;padding:12px;background:var(--accent-saffron);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:6px;">🚀 Publish My Skill to City Network</button>
+    </form>
   </div>
 </div>
 
@@ -453,7 +637,7 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
   <div class="modal-sheet-box" onclick="event.stopPropagation()">
     <div class="sheet-bar"></div>
     <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Today's Best City Deals 🎁</div>
-    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Top discounts from verified shops in Surat &amp; Ahmedabad.</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Top discounts from verified citizens and shops.</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div style="background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
         <div><div style="font-size:14px;font-weight:800;">Shreeji Super Store</div><div style="font-size:12px;color:var(--text-secondary);">Flat 20% OFF on Monthly Ration</div></div>
@@ -520,6 +704,71 @@ function setCity(cityStr){
   showToast('Location set: ' + cityStr);
 }
 
+function openProfessionModal(){document.getElementById('profModal').classList.add('active');}
+function closeProfessionModal(e){document.getElementById('profModal').classList.remove('active');}
+
+function submitProfession(e){
+  e.preventDefault();
+  const name = document.getElementById('inputCitName').value;
+  const title = document.getElementById('inputCitTitle').value;
+  const cat = document.getElementById('inputCitCat').value;
+  const loc = document.getElementById('inputCitLoc').value;
+  const phone = document.getElementById('inputCitPhone').value;
+  const price = document.getElementById('inputCitPrice').value;
+  const skills = document.getElementById('inputCitSkills').value.split(',');
+
+  const newCard = document.createElement('div');
+  newCard.className = 'cit-card';
+  newCard.setAttribute('data-cat', cat);
+  newCard.innerHTML = `
+    <div class="cit-card-top">
+      <img class="cit-card-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="${name}"/>
+      <div class="cit-card-info">
+        <div class="cit-card-name-row">
+          <span class="cit-card-name">${name}</span>
+          <span class="cit-v-badge">✓ Verified</span>
+        </div>
+        <div class="cit-card-profession">${title}</div>
+        <div class="cit-card-loc">📍 ${loc} &middot; ★ 5.0 (New) &middot; ● Available</div>
+      </div>
+    </div>
+    <div class="cit-skills-row">
+      ${skills.map(s=>`<span class="cit-skill-mini">${s.trim()}</span>`).join('')}
+    </div>
+    <div class="cit-card-bottom">
+      <div class="cit-price">${price}</div>
+      <div class="cit-actions" onclick="event.stopPropagation()">
+        <button class="cit-btn-call" onclick="showToast('Calling ${name}: ${phone}')">📞 Call</button>
+        <button class="cit-btn-chat" onclick="window.location.href='chat.html?q=Book+${encodeURIComponent(name)}'">⚡ Request</button>
+      </div>
+    </div>
+  `;
+
+  const list = document.getElementById('citizenDirectoryList');
+  list.insertBefore(newCard, list.firstChild);
+  document.getElementById('profModal').classList.remove('active');
+  showToast('🎉 Capability Profile Published Successfully!');
+}
+
+function filterDirectory(category, btn){
+  document.querySelectorAll('.dir-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.cit-card');
+  cards.forEach(c=>{
+    if(category === 'all' || c.getAttribute('data-cat') === category){
+      c.style.display = 'flex';
+    } else {
+      c.style.display = 'none';
+    }
+  });
+}
+
+function focusSearch(){
+  const input = document.getElementById('mainSearchInput');
+  input.focus();
+  input.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
 function executeSearch(query){
   if(!query.trim()) return;
   showToast('Searching Gotilo: ' + query);
@@ -579,7 +828,7 @@ function toggleFav(e, btn){
   showToast(btn.classList.contains('liked') ? '❤️ Added to Favorites' : 'Removed from Favorites');
 }
 
-function showNotificationCenter(){showToast('🔔 2 new updates: Welcome to Gotilo!');}
+function showNotificationCenter(){showToast('🔔 2 new updates: Welcome to Gotilo Community Network!');}
 
 let currentLangIdx = 0;
 const languages = ['English', 'ગુજરાતી', 'हिन्दी'];
