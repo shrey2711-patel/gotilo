@@ -412,12 +412,231 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
 .op-name { font-size: 12.5px; font-weight: 800; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .op-dist { font-size: 11px; color: var(--text-muted); }
 
+
+/* ── Fullscreen Auth Gatekeeper Modal / Screen ── */
+.auth-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-page);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  overflow-y: auto;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.auth-gate-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.auth-gate-box {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+}
+.auth-logo-wrap {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.auth-logo-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--logo-color);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.auth-logo-sub {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--logo-sub-color);
+  margin-top: 3px;
+  letter-spacing: 0.2px;
+}
+.auth-hero-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* Tab Switcher */
+.auth-tabs-bar {
+  display: flex;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: 9999px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+.auth-gate-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.auth-gate-tab.active {
+  background: var(--accent-saffron);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-form-panel {
+  display: none;
+}
+.auth-form-panel.active {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+.gate-input-group {
+  margin-bottom: 14px;
+}
+.gate-input-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.gate-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.gate-input:focus {
+  border-color: var(--accent-saffron);
+  box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
+}
+
+.gate-submit-btn {
+  width: 100%;
+  background: var(--accent-saffron);
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255,107,0,0.3);
+  margin-top: 6px;
+  transition: transform 0.15s;
+}
+.gate-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.guest-skip-btn {
+  width: 100%;
+  background: transparent;
+  border: 1.5px dashed var(--border-light);
+  border-radius: 14px;
+  padding: 11px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 14px;
+  transition: all 0.15s;
+}
+.guest-skip-btn:active {
+  border-color: var(--accent-saffron);
+  color: var(--accent-saffron);
+}
+
 </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
+
+<!-- ── FULLSCREEN SIGN-IN / ONBOARDING GATEKEEPER ── -->
+<div id="authGatekeeper" class="auth-gate-overlay">
+  <div class="auth-gate-box">
+    
+    <div class="auth-logo-wrap">
+      <div class="auth-logo-title">Gotilo</div>
+      <div class="auth-logo-sub">ગોતીલો</div>
+      <div class="auth-hero-desc">Every citizen can offer &amp; discover capabilities.</div>
+    </div>
+
+    <div class="auth-tabs-bar">
+      <div id="gateTabLogin" class="auth-gate-tab active" onclick="switchGateTab('login')">Sign In</div>
+      <div id="gateTabReg" class="auth-gate-tab" onclick="switchGateTab('register')">Register as Citizen</div>
+    </div>
+
+    <!-- SIGN IN PANEL -->
+    <div id="gatePanelLogin" class="auth-form-panel active">
+      <form onsubmit="handleGateLogin(event)">
+        <div class="gate-input-group">
+          <label class="gate-input-label">Mobile Number or Email</label>
+          <input id="gateLoginPhone" class="gate-input" type="text" placeholder="Enter 10-digit mobile or email" required/>
+        </div>
+        <div class="gate-input-group">
+          <label class="gate-input-label">Password or Fast OTP</label>
+          <input id="gateLoginPass" class="gate-input" type="password" placeholder="Enter password / OTP" required/>
+        </div>
+        <button type="submit" class="gate-submit-btn">Sign In to Gotilo →</button>
+      </form>
+
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <button type="button" style="flex:1;background:var(--bg-card);border:1px solid var(--border-light);border-radius:12px;padding:10px;font-size:12.5px;font-weight:700;color:var(--text-primary);cursor:pointer;" onclick="fastGateOtp()">📱 1-Tap OTP</button>
+        <button type="button" style="flex:1;background:var(--bg-card);border:1px solid var(--border-light);border-radius:12px;padding:10px;font-size:12.5px;font-weight:700;color:var(--text-primary);cursor:pointer;" onclick="fastGateOtp()">Google Sign-In</button>
+      </div>
+    </div>
+
+    <!-- REGISTER CITIZEN PANEL -->
+    <div id="gatePanelReg" class="auth-form-panel">
+      <form onsubmit="handleGateRegister(event)">
+        <div class="gate-input-group">
+          <label class="gate-input-label">Full Name</label>
+          <input id="gateRegName" class="gate-input" placeholder="e.g. Harsh Patel" required/>
+        </div>
+        <div class="gate-input-group">
+          <label class="gate-input-label">Mobile Number</label>
+          <input id="gateRegPhone" class="gate-input" type="tel" placeholder="+91 98765 43210" maxlength="10" required/>
+        </div>
+        <div class="gate-input-group">
+          <label class="gate-input-label">Your City Location</label>
+          <select id="gateRegCity" class="gate-input" style="background:var(--bg-card);">
+            <option value="Surat">Surat (Vesu, Adajan, Varachha)</option>
+            <option value="Ahmedabad">Ahmedabad (Satellite, Vastrapur, Bodakdev)</option>
+            <option value="Vadodara">Vadodara (Alkapuri, Gotri)</option>
+            <option value="Rajkot">Rajkot (Kalawad Road)</option>
+          </select>
+        </div>
+        <div class="gate-input-group">
+          <label class="gate-input-label">Your Profession / Skill (Optional)</label>
+          <input id="gateRegRole" class="gate-input" placeholder="e.g. Plumber, Home Chef, Tutor, Designer"/>
+        </div>
+        <button type="submit" class="gate-submit-btn">Create Citizen Profile 🚀</button>
+      </form>
+    </div>
+
+    <!-- Skip / Guest Mode -->
+    <button class="guest-skip-btn" onclick="continueAsGuest()">
+      👀 Explore Gotilo as Guest (Skip Sign-In)
+    </button>
+
+  </div>
+</div>
+
 <div class="app">
 
   <!-- Header -->
@@ -849,6 +1068,10 @@ html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-m
   </div>
 </div>
 
+      <div class="drawer-menu-item" onclick="logoutGotilo();closeDrawer();" style="color:#EF4444;">
+        <div class="drawer-item-left"><span class="drawer-icon">🚪</span> Sign Out / Switch Account</div>
+      </div>
+
 <!-- Deals Modal -->
 <div id="dealsModal" class="modal-bg" onclick="closeDealsModal(event)">
   <div class="modal-sheet-box" onclick="event.stopPropagation()">
@@ -1238,7 +1461,106 @@ function showToast(msg){
   toastTimer = setTimeout(()=>{ t.classList.remove('show'); }, 2200);
 }
 
-window.addEventListener('DOMContentLoaded', ()=>{ initTheme(); fetchLiveCityWeather(); calculateLiveOrderETA(); });
+window.addEventListener('DOMContentLoaded', ()=>{ initTheme(); checkAuthGate(); fetchLiveCityWeather(); calculateLiveOrderETA(); });
+
+// ── Authentication Gatekeeper Controller ──
+function checkAuthGate() {
+  const user = localStorage.getItem('gotilo_user');
+  const gate = document.getElementById('authGatekeeper');
+  if (user) {
+    // User already signed in
+    if (gate) gate.classList.add('hidden');
+    try {
+      const parsed = JSON.parse(user);
+      const nameEl = document.getElementById('profUserName');
+      if (nameEl && parsed.name) nameEl.textContent = parsed.name;
+    } catch(e){}
+  } else {
+    // First time load: show sign-in screen
+    if (gate) gate.classList.remove('hidden');
+  }
+}
+
+function switchGateTab(tab) {
+  const tabLogin = document.getElementById('gateTabLogin');
+  const tabReg = document.getElementById('gateTabReg');
+  const panelLogin = document.getElementById('gatePanelLogin');
+  const panelReg = document.getElementById('gatePanelReg');
+
+  if (tab === 'login') {
+    tabLogin.classList.add('active');
+    tabReg.classList.remove('active');
+    panelLogin.classList.add('active');
+    panelReg.classList.remove('active');
+  } else {
+    tabReg.classList.add('active');
+    tabLogin.classList.remove('active');
+    panelReg.classList.add('active');
+    panelLogin.classList.remove('active');
+  }
+}
+
+function handleGateLogin(e) {
+  e.preventDefault();
+  const phone = document.getElementById('gateLoginPhone').value.trim();
+  const user = {
+    name: 'Harsh Patel',
+    phone: phone,
+    city: 'Surat',
+    role: 'Citizen & Consultant',
+    isLoggedIn: true
+  };
+  localStorage.setItem('gotilo_user', JSON.stringify(user));
+  showToast('Welcome to Gotilo, Harsh Patel! 🎉');
+  document.getElementById('authGatekeeper').classList.add('hidden');
+}
+
+function handleGateRegister(e) {
+  e.preventDefault();
+  const name = document.getElementById('gateRegName').value.trim();
+  const phone = document.getElementById('gateRegPhone').value.trim();
+  const city = document.getElementById('gateRegCity').value;
+  const role = document.getElementById('gateRegRole').value.trim() || 'Citizen';
+
+  const user = {
+    name: name,
+    phone: '+91 ' + phone,
+    city: city,
+    role: role,
+    isLoggedIn: true
+  };
+  localStorage.setItem('gotilo_user', JSON.stringify(user));
+  showToast('🎉 Profile Created! Welcome to Gotilo, ' + name);
+  document.getElementById('authGatekeeper').classList.add('hidden');
+}
+
+function fastGateOtp() {
+  showToast('📱 OTP 4298 Verified! Signing in...');
+  const user = {
+    name: 'Harsh Patel',
+    phone: '+91 98980 12345',
+    city: 'Surat',
+    role: 'Citizen & Consultant',
+    isLoggedIn: true
+  };
+  localStorage.setItem('gotilo_user', JSON.stringify(user));
+  setTimeout(() => {
+    document.getElementById('authGatekeeper').classList.add('hidden');
+  }, 800);
+}
+
+function continueAsGuest() {
+  document.getElementById('authGatekeeper').classList.add('hidden');
+  showToast('Browsing as Guest 👀 Sign in anytime from Profile!');
+}
+
+function logoutGotilo() {
+  localStorage.removeItem('gotilo_user');
+  showToast('🚪 Logged out successfully');
+  const gate = document.getElementById('authGatekeeper');
+  if (gate) gate.classList.remove('hidden');
+}
+
 
 // ── API 1: Open-Meteo Live Weather Integration ──
 function fetchLiveCityWeather(lat = 21.1702, lng = 72.8311) {
