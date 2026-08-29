@@ -1,1190 +1,591 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
 <title>Gotilo — બસ કહો, ગોતીલો.</title>
 <meta name="application-name" content="Gotilo"/>
-<meta name="theme-color" content="#F6F2EC"/>
+<meta name="theme-color" content="#FFFFFF" id="metaThemeColor"/>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-:root{
-  --bg:          #F6F2EC;
-  --bg-subtle:   #EFEAE2;
-  --card:        #FFFFFF;
-  --card-alt:    #FAF7F2;
-  --text-1:      #181614;
-  --text-2:      #5E5A54;
-  --text-3:      #9E988F;
-  --accent:      #E8590C;
-  --accent-soft: #FFF2E8;
-  --accent-deep: #C94A05;
-  --green:       #15803D;
-  --green-bg:    #EDFBF1;
-  --blue:        #1D4ED8;
-  --blue-bg:     #EFF6FF;
-  --border:      #E7E1D8;
-  --border-light:#F0EBE3;
-  --sh-sm:       0 2px 8px rgba(24,22,20,0.04);
-  --sh-md:       0 6px 20px rgba(24,22,20,0.06);
-  --radius-sm:   10px;
-  --radius-md:   16px;
-  --radius-lg:   22px;
-  --radius-full: 9999px;
-  --font:        'Plus Jakarta Sans', 'Noto Sans Gujarati', -apple-system, BlinkMacSystemFont, sans-serif;
+:root, [data-theme="light"] {
+  --bg-page:        #FFFFFF;
+  --bg-surface:     #F8FAFC;
+  --bg-card:        #FFFFFF;
+  --bg-subtle:      #F1F5F9;
+  --bg-input:       #FFFFFF;
+  --border-light:   #E2E8F0;
+  --border-subtle:  #EDF2F7;
+  --text-primary:   #0F172A;
+  --text-secondary: #475569;
+  --text-muted:     #94A3B8;
+  --accent-saffron: #FF6B00;
+  --accent-soft:    #FFF4ED;
+  --logo-color:     #FF6B00; /* Saffron in Light Theme */
+  --logo-sub-color: #FF6B00;
+  --green:          #16A34A;
+  --green-bg:       #DCFCE7;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md:      0 4px 14px rgba(15,23,42,0.06);
+  --shadow-lg:      0 10px 30px rgba(15,23,42,0.08);
+  --nav-bg:         rgba(255,255,255,0.94);
+  --nav-border:     #E2E8F0;
+  --drawer-bg:      #FFFFFF;
+  --deal-banner-bg: linear-gradient(135deg, #FFF1E7 0%, #FFE5D3 100%);
+  --deal-banner-text: #1E293B;
+  --deal-badge-bg:  #FF6B00;
+  --font-main:      'Plus Jakarta Sans', 'Noto Sans Gujarati', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-html,body{
-  min-height:100%;
-  width:100%;
-  margin:0;
-  padding:0;
-  font-family:var(--font);
-  background:var(--bg);
-  color:var(--text-1);
-  -webkit-font-smoothing:antialiased;
+[data-theme="dark"] {
+  --bg-page:        #0B0F17;
+  --bg-surface:     #111827;
+  --bg-card:        #161F30;
+  --bg-subtle:      #1E293B;
+  --bg-input:       #161F30;
+  --border-light:   #1E293B;
+  --border-subtle:  #161F30;
+  --text-primary:   #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted:     #64748B;
+  --accent-saffron: #FF6B00;
+  --accent-soft:    rgba(255,107,0,0.15);
+  --logo-color:     #FFFFFF; /* White in Dark Theme */
+  --logo-sub-color: #F8FAFC;
+  --green:          #22C55E;
+  --green-bg:       rgba(34,197,94,0.18);
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.45);
+  --shadow-lg:      0 10px 30px rgba(0,0,0,0.6);
+  --nav-bg:         rgba(17,24,39,0.95);
+  --nav-border:     #1E293B;
+  --drawer-bg:      #111827;
+  --deal-banner-bg: linear-gradient(135deg, #241A14 0%, #351C0F 100%);
+  --deal-banner-text: #F8FAFC;
+  --deal-badge-bg:  #FF6B00;
 }
 
-.app{
-  width:100%;
-  max-width:480px;
-  min-height:100vh;
-  min-height:100dvh;
-  margin:0 auto;
-  background:var(--bg);
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  box-shadow:0 0 40px rgba(0,0,0,0.06);
-}
-@media(max-width:600px){
-  body{background:var(--bg);}
-  .app{max-width:100%;box-shadow:none;}
-}
+html,body{min-height:100%;width:100%;margin:0;padding:0;font-family:var(--font-main);background:var(--bg-page);color:var(--text-primary);-webkit-font-smoothing:antialiased;transition:background 0.25s, color 0.25s;}
+.app{width:100%;max-width:480px;min-height:100vh;min-height:100dvh;margin:0 auto;background:var(--bg-page);display:flex;flex-direction:column;position:relative;box-shadow:0 0 50px rgba(0,0,0,0.06);}
+@media(max-width:540px){.app{max-width:100%;box-shadow:none;}}
 
-.header{
-  background:var(--card);
-  padding:12px 18px 10px;
-  border-bottom:1px solid var(--border-light);
-  flex-shrink:0;
-  z-index:30;
-}
-.header-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  cursor:pointer;
-}
-.brand-mark{
-  width:32px;
-  height:32px;
-  border-radius:10px;
-  background:var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-weight:800;
-  font-size:16px;
-  box-shadow:0 2px 10px rgba(232,89,12,0.25);
-}
-.brand-name{
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:-0.4px;
-  color:var(--text-1);
-  line-height:1;
-}
-.brand-sub{
-  font-size:11px;
-  font-weight:600;
-  color:var(--accent);
-  margin-top:2px;
-}
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.lang-switch{
-  display:flex;
-  background:var(--bg-subtle);
-  border-radius:var(--radius-full);
-  padding:2px;
-  border:1px solid var(--border);
-}
-.lang-btn{
-  border:none;
-  background:transparent;
-  padding:4px 8px;
-  font-size:11px;
-  font-weight:700;
-  color:var(--text-2);
-  border-radius:var(--radius-full);
-  cursor:pointer;
-  transition:all 0.15s ease;
-  font-family:inherit;
-}
-.lang-btn.active{
-  background:var(--card);
-  color:var(--text-1);
-  box-shadow:0 1px 4px rgba(0,0,0,0.06);
-}
-.mode-pill{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  background:var(--card-alt);
-  border:1px solid var(--border);
-  padding:5px 9px;
-  border-radius:var(--radius-full);
-  font-size:11.5px;
-  font-weight:600;
-  color:var(--text-2);
-  cursor:pointer;
-}
-.location-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:9px;
-  padding-top:7px;
-  border-top:1px dashed var(--border-light);
-}
-.loc-select{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  font-size:12px;
-  font-weight:600;
-  color:var(--text-2);
-  cursor:pointer;
-}
-.loc-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 0 3px var(--accent-soft);
-}
-.loc-text{
-  color:var(--text-1);
-  font-weight:700;
-}
-.city-badge{
-  font-size:10px;
-  background:var(--bg-subtle);
-  color:var(--text-2);
-  font-weight:700;
-  padding:2px 7px;
-  border-radius:var(--radius-full);
-}
+/* Top Header */
+.top-header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:var(--bg-page);position:sticky;top:0;z-index:40;transition:background 0.25s;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.hamburger-btn{background:none;border:none;padding:4px;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:28px;}
+.hamburger-btn span{display:block;height:2.2px;background:var(--text-primary);border-radius:2px;transition:all 0.2s;}
+.hamburger-btn span:nth-child(1){width:20px;}
+.hamburger-btn span:nth-child(2){width:24px;}
+.hamburger-btn span:nth-child(3){width:16px;}
+.brand-wrap{display:flex;flex-direction:column;cursor:pointer;user-select:none;}
+.brand-title{font-size:24px;font-weight:800;letter-spacing:-0.6px;line-height:1;color:var(--logo-color);transition:color 0.25s;}
+.brand-sub-text{font-size:11px;font-weight:700;color:var(--logo-sub-color);margin-top:1px;letter-spacing:0.2px;transition:color 0.25s;}
+.header-right{display:flex;align-items:center;gap:8px;}
+.loc-pill{display:flex;align-items:center;gap:5px;background:var(--bg-subtle);border:1px solid var(--border-light);padding:7px 12px;border-radius:9999px;font-size:12.5px;font-weight:700;color:var(--text-primary);cursor:pointer;transition:all 0.15s;}
+.loc-pill:active{transform:scale(0.96);}
+.loc-arrow{font-size:10px;color:var(--text-muted);margin-left:2px;}
+.bell-btn{width:38px;height:38px;border-radius:50%;background:var(--bg-subtle);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;color:var(--text-primary);}
+.bell-btn:active{transform:scale(0.92);}
+.bell-dot{position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--accent-saffron);border-radius:50%;border:1.5px solid var(--bg-page);}
 
-.main-scroll{
-  flex:1;
-  overflow-y:auto;
-  overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  padding:14px 16px 90px;
-  scrollbar-width:none;
-}
-.main-scroll::-webkit-scrollbar{display:none;}
+/* Main scroll */
+.main-content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:8px 20px 96px;scrollbar-width:none;}
+.main-content::-webkit-scrollbar{display:none;}
 .tab-view{display:none;}
-.tab-view.active{display:block;animation:viewFade 0.2s ease;}
-@keyframes viewFade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.tab-view.active{display:block;animation:fadeIn 0.2s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-.hero-box{
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  padding:18px 18px 16px;
-  border:1px solid var(--border);
-  box-shadow:var(--sh-sm);
-  margin-bottom:18px;
-  position:relative;
-}
-.hero-tag{
-  font-size:11px;
-  font-weight:800;
-  color:var(--accent);
-  text-transform:uppercase;
-  letter-spacing:0.6px;
-  margin-bottom:4px;
-}
-.hero-headline{
-  font-size:22px;
-  font-weight:800;
-  color:var(--text-1);
-  letter-spacing:-0.5px;
-  line-height:1.22;
-  margin-bottom:6px;
-}
-.hero-tagline{
-  font-size:13.5px;
-  color:var(--text-2);
-  font-weight:500;
-  margin-bottom:14px;
-}
-.search-chat-wrap{
-  background:var(--bg);
-  border:1.5px solid var(--border);
-  border-radius:18px;
-  padding:7px 8px 7px 14px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  transition:all 0.2s ease;
-}
-.search-chat-wrap:focus-within{
-  border-color:var(--accent);
-  background:#fff;
-  box-shadow:0 0 0 3px rgba(232,89,12,0.12);
-}
-.sc-input{
-  flex:1;
-  font-family:inherit;
-  font-size:14.5px;
-  color:var(--text-1);
-  background:transparent;
-  border:none;
-  outline:none;
-  font-weight:500;
-}
-.sc-input::placeholder{color:var(--text-3);font-weight:400;}
-.mic-action-btn{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:var(--card);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text-2);
-  cursor:pointer;
-  transition:all 0.15s;
-  flex-shrink:0;
-}
-.mic-action-btn:active{background:var(--accent-soft);color:var(--accent);transform:scale(0.92);}
-.send-action-btn{
-  width:38px;
-  height:38px;
-  border-radius:13px;
-  background:var(--accent);
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  cursor:pointer;
-  transition:all 0.15s;
-  flex-shrink:0;
-  box-shadow:0 3px 10px rgba(232,89,12,0.3);
-}
-.send-action-btn:active{background:var(--accent-deep);transform:scale(0.92);}
-.prompt-chips-scroll{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  margin-top:12px;
-  padding-bottom:2px;
-}
-.prompt-chips-scroll::-webkit-scrollbar{display:none;}
-.p-chip{
-  background:var(--card-alt);
-  border:1px solid var(--border);
-  padding:7px 12px;
-  border-radius:var(--radius-full);
-  font-size:12px;
-  font-weight:600;
-  color:var(--text-2);
-  white-space:nowrap;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  transition:all 0.15s ease;
-  flex-shrink:0;
-}
-.p-chip:active{background:var(--accent);color:#fff;border-color:var(--accent);}
+/* Hero */
+.hero-text-block{margin:10px 0 18px;}
+.hero-h1{font-size:28px;font-weight:800;letter-spacing:-0.8px;line-height:1.2;color:var(--text-primary);}
+.hero-h1 span.highlight{color:var(--accent-saffron);display:block;}
 
-.sec-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px;
-}
-.sec-title{
-  font-size:16px;
-  font-weight:800;
-  color:var(--text-1);
-  letter-spacing:-0.3px;
-}
-.sec-link{
-  font-size:12.5px;
-  font-weight:700;
-  color:var(--accent);
-  cursor:pointer;
-}
+/* Search */
+.search-bar-box{background:var(--bg-input);border:1.5px solid var(--border-light);border-radius:9999px;padding:6px 6px 6px 18px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);transition:all 0.2s;margin-bottom:12px;}
+.search-bar-box:focus-within{border-color:var(--accent-saffron);box-shadow:0 0 0 3px rgba(255,107,0,0.12);}
+.sb-icon{color:var(--text-muted);display:flex;align-items:center;flex-shrink:0;}
+.sb-input{flex:1;border:none;background:transparent;font-family:inherit;font-size:14.5px;font-weight:500;color:var(--text-primary);outline:none;min-width:0;}
+.sb-input::placeholder{color:var(--text-muted);font-weight:400;}
+.sb-mic-btn{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);border:none;display:flex;align-items:center;justify-content:center;color:var(--accent-saffron);cursor:pointer;transition:all 0.15s;flex-shrink:0;}
+.sb-mic-btn:active{transform:scale(0.92);background:var(--accent-saffron);color:#fff;}
+.sb-mic-btn.recording{background:var(--accent-saffron);color:#fff;animation:pulseMic 1.2s infinite;}
+@keyframes pulseMic{0%,100%{transform:scale(1);}50%{transform:scale(1.1);box-shadow:0 0 12px rgba(255,107,0,0.5);}}
 
-.daily-hub-grid{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:9px;
-  margin-bottom:20px;
-}
-.daily-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:12px 6px 10px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  transition:all 0.15s ease;
-  text-align:center;
-}
-.daily-card:active{transform:scale(0.94);border-color:var(--accent);background:var(--accent-soft);}
-.daily-emoji{font-size:24px;line-height:1;}
-.daily-label{font-size:11px;font-weight:700;color:var(--text-1);line-height:1.2;}
-.daily-sub{font-size:9.5px;color:var(--text-3);font-weight:500;}
+/* Chips */
+.search-pills-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:24px;padding-bottom:2px;}
+.search-pills-row::-webkit-scrollbar{display:none;}
+.search-pill{background:var(--bg-page);border:1px solid var(--border-light);border-radius:9999px;padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--text-secondary);white-space:nowrap;display:flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.15s;flex-shrink:0;}
+.search-pill:active{border-color:var(--accent-saffron);color:var(--accent-saffron);background:var(--accent-soft);}
 
-.pros-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.pro-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:13px 14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-  box-shadow:var(--sh-sm);
-  transition:all 0.15s ease;
-}
-.pro-card:active{transform:scale(0.98);}
-.pro-avatar{
-  width:50px;
-  height:50px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  flex-shrink:0;
-}
-.pro-avatar.blue{background:#E0F2FE;}
-.pro-avatar.orange{background:#FFEDD5;}
-.pro-avatar.green{background:#DCFCE7;}
-.pro-avatar.purple{background:#F3E8FF;}
-.pro-details{flex:1;min-width:0;}
-.pro-row-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
-.pro-name{font-size:14px;font-weight:800;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pro-badge-now{font-size:10px;font-weight:700;color:var(--green);background:var(--green-bg);padding:2px 7px;border-radius:var(--radius-full);}
-.pro-skill{font-size:12px;color:var(--text-2);margin-bottom:4px;}
-.pro-meta{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-3);font-weight:600;}
-.pro-meta b{color:var(--text-1);}
-.pro-dot{width:3px;height:3px;background:var(--text-3);border-radius:50%;}
-.pro-rate{font-size:12px;font-weight:700;color:var(--accent);}
-.pro-action-btn{
-  width:36px;
-  height:36px;
-  border-radius:11px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text-1);
-  flex-shrink:0;
-}
+/* Sections */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.section-title{font-size:17px;font-weight:800;color:var(--text-primary);letter-spacing:-0.3px;}
+.section-link{font-size:13px;font-weight:700;color:var(--accent-saffron);text-decoration:none;cursor:pointer;}
 
-.shops-carousel{display:flex;gap:11px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:20px;}
-.shops-carousel::-webkit-scrollbar{display:none;}
-.shop-card{
-  width:190px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:12px;
-  flex-shrink:0;
-  cursor:pointer;
-  box-shadow:var(--sh-sm);
-  transition:all 0.15s ease;
-}
-.shop-card:active{transform:scale(0.97);}
-.shop-banner{
-  width:100%;
-  height:100px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  position:relative;
-  margin-bottom:10px;
-}
-.shop-banner.dairy{background:linear-gradient(135deg, #FEF08A, #FDE047);}
-.shop-banner.kirana{background:linear-gradient(135deg, #FED7AA, #FDBA74);}
-.shop-banner.print{background:linear-gradient(135deg, #BFDBFE, #93C5FD);}
-.shop-banner.med{background:linear-gradient(135deg, #BBF7D0, #86EFAC);}
-.shop-banner.puncture{background:linear-gradient(135deg, #E9D5FF, #D8B4FE);}
-.shop-status-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.92);backdrop-filter:blur(4px);padding:2px 7px;border-radius:6px;font-size:9.5px;font-weight:800;color:var(--green);}
-.shop-dist-badge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.92);backdrop-filter:blur(4px);padding:2px 7px;border-radius:6px;font-size:9.5px;font-weight:700;color:var(--text-1);}
-.shop-c-name{font-size:13.5px;font-weight:800;color:var(--text-1);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.shop-c-cat{font-size:11.5px;color:var(--text-2);margin-bottom:6px;}
-.shop-c-items{font-size:11px;color:var(--accent);font-weight:600;background:var(--accent-soft);padding:3px 7px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* Popular Categories */
+.popular-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 8px;margin-bottom:26px;}
+.pop-cat-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-align:center;}
+.pop-cat-icon-wrap{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;transition:transform 0.15s;}
+.pop-cat-item:active .pop-cat-icon-wrap{transform:scale(0.92);}
+.pop-cat-label{font-size:12px;font-weight:700;color:var(--text-primary);line-height:1.2;}
+.bg-food{background:#FFE6D8;color:#EA580C;}.bg-shopping{background:#EFE6FF;color:#7C3AED;}
+.bg-repairs{background:#E0F2FE;color:#0284C7;}.bg-services{background:#DCFCE7;color:#16A34A;}
+.bg-healthcare{background:#FFE4E8;color:#E11D48;}.bg-beauty{background:#FEF3C7;color:#D97706;}
+.bg-education{background:#E0E7FF;color:#4F46E5;}.bg-home{background:#DCFCE7;color:#059669;}
 
-.feed-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:16px;}
-.feed-item{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid var(--border-light);cursor:pointer;}
-.feed-item:last-child{border-bottom:none;padding-bottom:0;}
-.feed-item:first-child{padding-top:0;}
-.feed-icon{width:40px;height:40px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.feed-body{flex:1;min-width:0;}
-.feed-title{font-size:13.5px;font-weight:700;color:var(--text-1);margin-bottom:2px;}
-.feed-desc{font-size:12px;color:var(--text-2);margin-bottom:4px;line-height:1.3;}
-.feed-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-3);font-weight:600;}
-.feed-badge{font-size:10px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 6px;border-radius:4px;}
+/* Explore Cards */
+.explore-carousel{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:22px;}
+.explore-carousel::-webkit-scrollbar{display:none;}
+.explore-card{width:168px;height:210px;border-radius:20px;position:relative;overflow:hidden;flex-shrink:0;cursor:pointer;box-shadow:var(--shadow-md);transition:transform 0.15s;}
+.explore-card:active{transform:scale(0.97);}
+.explore-card-img{width:100%;height:100%;object-fit:cover;display:block;}
+.explore-card-overlay{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 100%);display:flex;flex-direction:column;justify-content:space-between;padding:12px;color:#FFFFFF;}
+.card-top-row{display:flex;align-items:center;justify-content:space-between;}
+.badge-open{background:rgba(22,163,74,0.9);backdrop-filter:blur(4px);color:#FFFFFF;font-size:10px;font-weight:800;padding:3px 8px;border-radius:9999px;}
+.fav-heart-btn{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.35);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.fav-heart-btn.liked svg{fill:#EF4444;stroke:#EF4444;}
+.card-name{font-size:14px;font-weight:800;line-height:1.2;color:#FFFFFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-meta-line{font-size:11px;color:rgba(255,255,255,0.78);font-weight:500;}
+.card-rating{font-size:11.5px;font-weight:700;color:#FBBF24;display:flex;align-items:center;gap:3px;margin-top:2px;}
 
-.explore-cat-section{margin-bottom:20px;}
-.explore-cat-title{font-size:14px;font-weight:800;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;}
-.explore-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:10px;}
-.explore-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.15s;}
-.explore-item:active{background:var(--accent-soft);border-color:var(--accent);}
-.explore-emoji{font-size:26px;}
-.explore-name{font-size:13.5px;font-weight:700;color:var(--text-1);}
-.explore-count{font-size:11px;color:var(--text-3);}
+/* Deals Banner */
+.deals-banner{background:var(--deal-banner-bg);border:1px solid var(--border-light);border-radius:20px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;box-shadow:var(--shadow-sm);}
+.deals-left{display:flex;align-items:center;gap:12px;flex:1;}
+.deal-percent-badge{width:42px;height:42px;border-radius:14px;background:var(--deal-badge-bg);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 10px rgba(255,107,0,0.3);}
+.deal-title{font-size:15px;font-weight:800;color:var(--deal-banner-text);}
+.deal-sub{font-size:11.5px;color:var(--text-secondary);line-height:1.3;}
+.deal-btn{background:var(--bg-card);border:1px solid var(--border-light);color:var(--accent-saffron);font-size:12px;font-weight:700;padding:8px 14px;border-radius:9999px;cursor:pointer;white-space:nowrap;}
+.deal-btn:active{background:var(--accent-saffron);color:#fff;}
 
-.activity-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:var(--sh-sm);}
-.act-status-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.act-live-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800;padding:3px 9px;border-radius:var(--radius-full);}
-.act-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 1.5s infinite;}
-@keyframes livePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.2);}}
-.act-title{font-size:15px;font-weight:800;color:var(--text-1);margin-bottom:4px;}
-.act-desc{font-size:12.5px;color:var(--text-2);margin-bottom:12px;}
-.act-actions-row{display:flex;gap:8px;border-top:1px solid var(--border-light);padding-top:12px;}
-.act-btn-call{flex:1;padding:9px 0;border-radius:10px;background:var(--bg);border:1px solid var(--border);font-size:12.5px;font-weight:700;color:var(--text-1);display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
-.act-btn-track{flex:1;padding:9px 0;border-radius:10px;background:var(--accent);border:none;font-size:12.5px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
+/* Trending */
+.trending-wrap{margin-bottom:16px;}
+.trending-pills-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.trending-pill{background:var(--bg-page);border:1px solid var(--border-light);border-radius:9999px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.15s;}
+.trending-pill:active{border-color:var(--accent-saffron);color:var(--accent-saffron);background:var(--accent-soft);}
 
-.profile-hero{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;text-align:center;margin-bottom:16px;}
-.profile-pic{width:68px;height:68px;border-radius:22px;background:linear-gradient(135deg, #F97316, #FBBF24);color:#fff;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 4px 14px rgba(249,115,22,0.25);}
-.profile-name{font-size:17px;font-weight:800;color:var(--text-1);}
-.profile-phone{font-size:13px;color:var(--text-3);margin-top:2px;}
-.role-badge{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full);margin-top:8px;}
-.profile-settings-group{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:14px;}
-.profile-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border-light);cursor:pointer;}
-.profile-row:last-child{border-bottom:none;}
-.profile-row-left{display:flex;align-items:center;gap:12px;}
-.profile-icon{font-size:18px;width:32px;height:32px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;}
-.profile-row-title{font-size:13.5px;font-weight:700;color:var(--text-1);}
-.profile-row-sub{font-size:11.5px;color:var(--text-3);}
+/* Nav & Drawer */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;width:100%;max-width:480px;margin:0 auto;height:68px;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--nav-border);display:flex;align-items:center;justify-content:space-around;padding:0 8px 6px;z-index:50;transition:background 0.25s, border-color 0.25s;}
+.nav-tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 0;color:var(--text-muted);user-select:none;transition:all 0.15s;}
+.nav-tab-item.active{color:var(--accent-saffron);}
+.nav-tab-item.active svg{transform:scale(1.08);stroke:var(--accent-saffron);}
+.nav-tab-label{font-size:11px;font-weight:700;letter-spacing:0.1px;}
 
-.nav-bar{position:fixed;max-width:480px;margin:0 auto;bottom:0;left:0;right:0;height:68px;background:var(--card);border-top:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-around;padding:0 6px 6px;z-index:40;}
-.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 0;border-radius:12px;color:var(--text-3);user-select:none;transition:all 0.15s ease;}
-.nav-tab.active{color:var(--accent);}
-.nav-tab svg{transition:transform 0.15s;}
-.nav-tab.active svg{transform:scale(1.08);}
-.nav-txt{font-size:10px;font-weight:700;letter-spacing:0.2px;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:100;display:none;opacity:0;transition:opacity 0.25s;}
+.drawer-overlay.open{display:block;opacity:1;}
+.side-drawer{position:fixed;top:0;left:0;bottom:0;width:82%;max-width:340px;background:var(--drawer-bg);z-index:101;transform:translateX(-100%);transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);display:flex;flex-direction:column;box-shadow:var(--shadow-lg);padding:24px 20px;}
+.drawer-overlay.open .side-drawer{transform:translateX(0);}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.drawer-menu-list{display:flex;flex-direction:column;gap:4px;flex:1;}
+.drawer-menu-item{display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:14px;color:var(--text-primary);font-size:14px;font-weight:700;cursor:pointer;}
+.drawer-menu-item:active{background:var(--bg-subtle);}
+.theme-switch-btn{background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:9999px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:4px;cursor:pointer;}
 
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(24,22,20,0.5);backdrop-filter:blur(3px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
-.modal-overlay.active{display:flex;animation:overlayFade 0.2s ease;}
-@keyframes overlayFade{from{opacity:0;}to{opacity:1;}}
-.modal-sheet{width:100%;max-width:480px;background:var(--card);border-radius:24px 24px 0 0;padding:20px 20px 32px;max-height:85vh;overflow-y:auto;animation:sheetSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);}
-@keyframes sheetSlide{from{transform:translateY(100%);}to{transform:translateY(0);}}
-.sheet-handle{width:40px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 16px;}
-.sheet-title{font-size:18px;font-weight:800;color:var(--text-1);margin-bottom:4px;}
-.sheet-sub{font-size:13px;color:var(--text-2);margin-bottom:16px;}
-.sheet-option-group{display:flex;gap:8px;margin-bottom:14px;}
-.sheet-opt{flex:1;padding:10px;border-radius:12px;background:var(--bg);border:1.5px solid var(--border);text-align:center;font-size:12.5px;font-weight:700;color:var(--text-2);cursor:pointer;}
-.sheet-opt.selected{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
-.sheet-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:12px;font-family:inherit;font-size:13.5px;color:var(--text-1);resize:none;outline:none;margin-bottom:14px;}
-.sheet-textarea:focus{border-color:var(--accent);background:#fff;}
-.sheet-submit-btn{width:100%;padding:14px;background:var(--accent);border:none;border-radius:14px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(232,89,12,0.3);}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--text-1);color:#fff;padding:10px 18px;border-radius:var(--radius-full);font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1);pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,0.15);}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(3px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+.modal-bg.active{display:flex;}
+.modal-sheet-box{width:100%;max-width:480px;background:var(--bg-card);border-radius:24px 24px 0 0;padding:20px 20px 32px;max-height:85vh;overflow-y:auto;color:var(--text-primary);}
+.sheet-bar{width:38px;height:4px;background:var(--border-light);border-radius:4px;margin:0 auto 16px;}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);background:var(--text-primary);color:var(--bg-page);padding:10px 18px;border-radius:9999px;font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all 0.3s;pointer-events:none;box-shadow:var(--shadow-lg);}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 </style>
 </head>
 
 <body>
 <div class="app">
-  <header class="header">
-    <div class="header-top">
-      <div class="brand" onclick="switchTab('home')">
-        <div class="brand-mark">G</div>
-        <div>
-          <div class="brand-name">Gotilo</div>
-          <div class="brand-sub" id="brandTag">બસ કહો, ગોતીલો.</div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <div class="lang-switch">
-          <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
-          <button class="lang-btn" onclick="setLang('gu', this)">ગુજ</button>
-          <button class="lang-btn" onclick="setLang('hi', this)">हिं</button>
-        </div>
-        <div class="mode-pill" onclick="toggleBusinessMode()">
-          <span id="modeIcon">👤</span>
-          <span id="modeLabel">User</span>
-        </div>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="header-left">
+      <button class="hamburger-btn" onclick="openDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="brand-wrap" onclick="switchTab('home')">
+        <div class="brand-title">Gotilo</div>
+        <div class="brand-sub-text">ગોતીલો</div>
       </div>
     </div>
-    <div class="location-row">
-      <div class="loc-select" onclick="cycleLocation()">
-        <div class="loc-dot"></div>
-        <span id="locDisplay">Satellite, <span class="loc-text">Ahmedabad</span></span>
-        <span style="font-size:9px;color:var(--text-3);">▾</span>
+    <div class="header-right">
+      <div class="loc-pill" onclick="openLocationPicker()">
+        <span>📍</span>
+        <span id="currentCityText">Surat, Gujarat</span>
+        <span class="loc-arrow">⌵</span>
       </div>
-      <span class="city-badge">📍 Live Hyperlocal</span>
+      <div class="bell-btn" onclick="showNotificationCenter()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        <span class="bell-dot"></span>
+      </div>
     </div>
   </header>
 
-  <main class="main-scroll">
-    <!-- Home Tab -->
+  <!-- Main Scroll Content -->
+  <main class="main-content">
+    <!-- TAB: HOME -->
     <section id="tab-home" class="tab-view active">
-      <div class="hero-box">
-        <div class="hero-tag" id="greetTag">HYPERLOCAL CITY COMPANION</div>
-        <div class="hero-headline" id="greetHeading">Hey Harsh! 👋<br>What do you need today?</div>
-        <div class="hero-tagline" id="greetSub">Just say it in plain words. Gotilo finds it nearby.</div>
-        <div class="search-chat-wrap">
-          <input id="homeQueryInput" class="sc-input" type="text" placeholder="Tell Gotilo what you need..." autocomplete="off"/>
-          <div class="mic-action-btn" onclick="simulateVoiceInput()" title="Voice search">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="1" width="6" height="14" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-          </div>
-          <button class="send-action-btn" onclick="submitHomeQuery()" title="Send to Gotilo">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </div>
-        <div class="prompt-chips-scroll" id="promptChips">
-          <div class="p-chip" onclick="quickAsk('My bathroom tap is leaking')">🔧 Bathroom tap leaking</div>
-          <div class="p-chip" onclick="quickAsk('Need 1L Amul Gold milk and dahi')">🥛 Milk &amp; Curd</div>
-          <div class="p-chip" onclick="quickAsk('Where can I get urgent color printout')">📄 Urgent Xerox &amp; Print</div>
-          <div class="p-chip" onclick="quickAsk('My AC is not cooling properly')">❄️ AC Service &amp; Gas</div>
-          <div class="p-chip" onclick="quickAsk('મારે બાઈક પંચર થઈ ગઈ છે')">🚲 Bike Puncture Repair</div>
-          <div class="p-chip" onclick="quickAsk('मुझे आटा और बेसन चाहिए')">🌾 Atta &amp; Besan</div>
-          <div class="p-chip" onclick="quickAsk('Paracetamol & Cough syrup near me')">💊 24x7 Medicine</div>
+      <div class="hero-text-block">
+        <div class="hero-h1">
+          Tell us what you need,
+          <span class="highlight">we'll help you find it.</span>
         </div>
       </div>
 
-      <div class="sec-header">
-        <span class="sec-title" id="secDailyTitle">Daily Needs at Hand</span>
-        <span class="sec-link" onclick="switchTab('explore')">Explore All</span>
+      <!-- Search Input -->
+      <div class="search-bar-box">
+        <div class="sb-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <input id="mainSearchInput" class="sb-input" type="text" placeholder="Find anything near you..." autocomplete="off"/>
+        <button class="sb-mic-btn" id="voiceMicBtn" onclick="startVoiceSearch()" title="Voice search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="1" width="6" height="14" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </button>
       </div>
 
-      <div class="daily-hub-grid">
-        <div class="daily-card" onclick="openRequestModal('Daily Milk & Dairy', '🥛')">
-          <div class="daily-emoji">🥛</div>
-          <div class="daily-label">Dairy &amp; Bread</div>
-          <div class="daily-sub">Amul / Bread</div>
+      <!-- Chips -->
+      <div class="search-pills-row">
+        <div class="search-pill" onclick="executeSearch('Phone repair shop')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Phone repair shop
         </div>
-        <div class="daily-card" onclick="openRequestModal('Fresh Vegetables', '🥦')">
-          <div class="daily-emoji">🥦</div>
-          <div class="daily-label">Subji &amp; Fruits</div>
-          <div class="daily-sub">Fresh Mandi</div>
+        <div class="search-pill" onclick="executeSearch('સસ્તા ફૂલ')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          સસ્તા ફૂલ
         </div>
-        <div class="daily-card" onclick="openRequestModal('Urgent Print & Xerox', '📄')">
-          <div class="daily-emoji">📄</div>
-          <div class="daily-label">Print / Xerox</div>
-          <div class="daily-sub">Stationery</div>
-        </div>
-        <div class="daily-card" onclick="openRequestModal('Plumbing Service', '🔧')">
-          <div class="daily-emoji">🔧</div>
-          <div class="daily-label">Plumber</div>
-          <div class="daily-sub">Leaks &amp; Taps</div>
-        </div>
-        <div class="daily-card" onclick="openRequestModal('Electrician', '⚡')">
-          <div class="daily-emoji">⚡</div>
-          <div class="daily-label">Electrician</div>
-          <div class="daily-sub">Fan / Wiring</div>
-        </div>
-        <div class="daily-card" onclick="openRequestModal('AC & Fridge Service', '❄️')">
-          <div class="daily-emoji">❄️</div>
-          <div class="daily-label">AC Repair</div>
-          <div class="daily-sub">Gas &amp; Service</div>
-        </div>
-        <div class="daily-card" onclick="openRequestModal('24x7 Pharmacy', '💊')">
-          <div class="daily-emoji">💊</div>
-          <div class="daily-label">Medicines</div>
-          <div class="daily-sub">24x7 Delivery</div>
-        </div>
-        <div class="daily-card" onclick="openRequestModal('Key Maker & Locksmith', '🔑')">
-          <div class="daily-emoji">🔑</div>
-          <div class="daily-label">Keys &amp; Lock</div>
-          <div class="daily-sub">10 min Doorstep</div>
+        <div class="search-pill" onclick="executeSearch('Cake for today evening')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Cake for today evening
         </div>
       </div>
 
-      <div class="sec-header">
-        <span class="sec-title">Available Right Now ⚡</span>
-        <span class="sec-link" onclick="window.location.href='chat.html'">Ask Gotilo</span>
+      <!-- Popular Categories -->
+      <div class="section-header">
+        <span class="section-title">Popular near you</span>
+        <span class="section-link" onclick="switchTab('search')">View all ›</span>
+      </div>
+      <div class="popular-grid">
+        <div class="pop-cat-item" onclick="executeSearch('Food & Restaurants')"><div class="pop-cat-icon-wrap bg-food">🍴</div><div class="pop-cat-label">Food</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Shopping & Clothing')"><div class="pop-cat-icon-wrap bg-shopping">🛍️</div><div class="pop-cat-label">Shopping</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Repairs & Mechanics')"><div class="pop-cat-icon-wrap bg-repairs">🔧</div><div class="pop-cat-label">Repairs</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Business & Local Services')"><div class="pop-cat-icon-wrap bg-services">💼</div><div class="pop-cat-label">Services</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Healthcare & Medicines')"><div class="pop-cat-icon-wrap bg-healthcare">💖</div><div class="pop-cat-label">Healthcare</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Beauty & Salon')"><div class="pop-cat-icon-wrap bg-beauty">✂️</div><div class="pop-cat-label">Beauty</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Education & Classes')"><div class="pop-cat-icon-wrap bg-education">🎓</div><div class="pop-cat-label">Education</div></div>
+        <div class="pop-cat-item" onclick="executeSearch('Home Services')"><div class="pop-cat-icon-wrap bg-home">🏠</div><div class="pop-cat-label">Home Services</div></div>
       </div>
 
-      <div class="pros-list">
-        <div class="pro-card" onclick="window.location.href='professional.html'">
-          <div class="pro-avatar blue">🔧</div>
-          <div class="pro-details">
-            <div class="pro-row-top">
-              <span class="pro-name">Rajesh Plumbing Works</span>
-              <span class="pro-badge-now">● Ready Now</span>
-            </div>
-            <div class="pro-skill">Tap leakage, Pipe fitting &middot; 6 yrs exp</div>
-            <div class="pro-meta">
-              <span>★ <b>4.8</b> (312)</span>
-              <span class="pro-dot"></span>
-              <span>0.6 km away</span>
-              <span class="pro-dot"></span>
-              <span class="pro-rate">From ₹199</span>
-            </div>
+      <!-- Explore Carousel -->
+      <div class="section-header">
+        <span class="section-title">Explore near you</span>
+        <span class="section-link" onclick="switchTab('search')">View all ›</span>
+      </div>
+      <div class="explore-carousel">
+        <div class="explore-card" onclick="window.location.href='shop.html'">
+          <img class="explore-card-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80" alt="The Coffee House"/>
+          <div class="explore-card-overlay">
+            <div class="card-top-row"><span class="badge-open">Open</span><div class="fav-heart-btn" onclick="toggleFav(event, this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div></div>
+            <div><div class="card-name">The Coffee House</div><div class="card-meta-line">Cafe &middot; 0.6 km</div><div class="card-rating">★ 4.6</div></div>
           </div>
-          <div class="pro-action-btn">›</div>
         </div>
-
-        <div class="pro-card" onclick="window.location.href='professional.html'">
-          <div class="pro-avatar orange">⚡</div>
-          <div class="pro-details">
-            <div class="pro-row-top">
-              <span class="pro-name">Mukesh Electricals &amp; Repair</span>
-              <span class="pro-badge-now">● Ready Now</span>
-            </div>
-            <div class="pro-skill">Fan, MCB, Inverter &amp; Wiring &middot; 8 yrs exp</div>
-            <div class="pro-meta">
-              <span>★ <b>4.9</b> (240)</span>
-              <span class="pro-dot"></span>
-              <span>1.1 km away</span>
-              <span class="pro-dot"></span>
-              <span class="pro-rate">From ₹149</span>
-            </div>
+        <div class="explore-card" onclick="window.location.href='shop.html'">
+          <img class="explore-card-img" src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=400&q=80" alt="Shreeji Super Store"/>
+          <div class="explore-card-overlay">
+            <div class="card-top-row"><span class="badge-open">Open</span><div class="fav-heart-btn" onclick="toggleFav(event, this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div></div>
+            <div><div class="card-name">Shreeji Super Store</div><div class="card-meta-line">Grocery &middot; 0.8 km</div><div class="card-rating">★ 4.3</div></div>
           </div>
-          <div class="pro-action-btn">›</div>
         </div>
-
-        <div class="pro-card" onclick="window.location.href='professional.html'">
-          <div class="pro-avatar green">❄️</div>
-          <div class="pro-details">
-            <div class="pro-row-top">
-              <span class="pro-name">Amit Cooling &amp; AC Care</span>
-              <span class="pro-badge-now">● Ready Now</span>
-            </div>
-            <div class="pro-skill">AC Filter clean, Gas filling &middot; 5 yrs exp</div>
-            <div class="pro-meta">
-              <span>★ <b>4.7</b> (189)</span>
-              <span class="pro-dot"></span>
-              <span>1.8 km away</span>
-              <span class="pro-dot"></span>
-              <span class="pro-rate">From ₹349</span>
-            </div>
+        <div class="explore-card" onclick="window.location.href='professional.html'">
+          <img class="explore-card-img" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=400&q=80" alt="Patel Car Care"/>
+          <div class="explore-card-overlay">
+            <div class="card-top-row"><span class="badge-open">Open</span><div class="fav-heart-btn" onclick="toggleFav(event, this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div></div>
+            <div><div class="card-name">Patel Car Care</div><div class="card-meta-line">Car Service &middot; 1.2 km</div><div class="card-rating">★ 4.7</div></div>
           </div>
-          <div class="pro-action-btn">›</div>
         </div>
-
-        <div class="pro-card" onclick="window.location.href='professional.html'">
-          <div class="pro-avatar purple">🔑</div>
-          <div class="pro-details">
-            <div class="pro-row-top">
-              <span class="pro-name">Bhavik Key Maker &amp; Lock Fix</span>
-              <span class="pro-badge-now">● 10 Min Arrival</span>
-            </div>
-            <div class="pro-skill">Duplicate keys, Door latch &amp; Lock stuck</div>
-            <div class="pro-meta">
-              <span>★ <b>4.8</b> (95)</span>
-              <span class="pro-dot"></span>
-              <span>0.9 km away</span>
-              <span class="pro-dot"></span>
-              <span class="pro-rate">From ₹120</span>
-            </div>
+        <div class="explore-card" onclick="window.location.href='shop.html'">
+          <img class="explore-card-img" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80" alt="Healora Clinic"/>
+          <div class="explore-card-overlay">
+            <div class="card-top-row"><span class="badge-open">Open</span><div class="fav-heart-btn" onclick="toggleFav(event, this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div></div>
+            <div><div class="card-name">Healora Clinic</div><div class="card-meta-line">Clinic &middot; 1.5 km</div><div class="card-rating">★ 4.5</div></div>
           </div>
-          <div class="pro-action-btn">›</div>
         </div>
       </div>
 
-      <div class="sec-header">
-        <span class="sec-title">Daily Shops Open Near You</span>
-        <span class="sec-link" onclick="switchTab('explore')">View Map</span>
+      <!-- Best Deals -->
+      <div class="deals-banner">
+        <div class="deals-left">
+          <div class="deal-percent-badge">%</div>
+          <div class="deal-texts">
+            <div class="deal-title">Best deals near you</div>
+            <div class="deal-sub">Explore top offers from trusted shops and services.</div>
+          </div>
+        </div>
+        <button class="deal-btn" onclick="openDealsModal()">Explore Deals</button>
+        <div class="deal-gift-icon">🎁</div>
       </div>
 
-      <div class="shops-carousel">
-        <div class="shop-card" onclick="window.location.href='shop.html'">
-          <div class="shop-banner dairy">
-            <div class="shop-status-badge">● OPEN</div>
-            <div class="shop-dist-badge">0.4 km</div>
-            🥛
-          </div>
-          <div class="shop-c-name">Amul Dairy &amp; Baker's Hub</div>
-          <div class="shop-c-cat">Milk, Curd, Paneer, Toast</div>
-          <div class="shop-c-items">★ 4.9 &middot; Amul Gold in stock</div>
+      <!-- Trending Searches -->
+      <div class="trending-wrap">
+        <div class="section-header" style="margin-bottom:10px;">
+          <span class="section-title">Trending searches</span>
         </div>
-
-        <div class="shop-card" onclick="window.location.href='shop.html'">
-          <div class="shop-banner kirana">
-            <div class="shop-status-badge">● OPEN</div>
-            <div class="shop-dist-badge">0.7 km</div>
-            🌾
-          </div>
-          <div class="shop-c-name">Shree Krishna Kirana</div>
-          <div class="shop-c-cat">Atta, Besan, Rice, Masala</div>
-          <div class="shop-c-items">★ 4.6 &middot; Free home drop ₹300+</div>
-        </div>
-
-        <div class="shop-card" onclick="window.location.href='shop.html'">
-          <div class="shop-banner print">
-            <div class="shop-status-badge">● OPEN</div>
-            <div class="shop-dist-badge">0.8 km</div>
-            🖨️
-          </div>
-          <div class="shop-c-name">Patel Xerox &amp; Stationery</div>
-          <div class="shop-c-cat">Color Prints, Spiral, Pens</div>
-          <div class="shop-c-items">★ 4.7 &middot; ₹2 per page print</div>
-        </div>
-
-        <div class="shop-card" onclick="window.location.href='shop.html'">
-          <div class="shop-banner med">
-            <div class="shop-status-badge">● 24x7</div>
-            <div class="shop-dist-badge">1.2 km</div>
-            💊
-          </div>
-          <div class="shop-c-name">Sanjivani 24/7 Medical</div>
-          <div class="shop-c-cat">All Medicines &amp; First Aid</div>
-          <div class="shop-c-items">★ 4.8 &middot; Open all night</div>
-        </div>
-
-        <div class="shop-card" onclick="window.location.href='shop.html'">
-          <div class="shop-banner puncture">
-            <div class="shop-status-badge">● ON WHEELS</div>
-            <div class="shop-dist-badge">1.5 km</div>
-            🛵
-          </div>
-          <div class="shop-c-name">Doorstep Bike Tyre Repair</div>
-          <div class="shop-c-cat">Tubeless Puncture, Air, Jump</div>
-          <div class="shop-c-items">★ 4.9 &middot; Doorstep in 15m</div>
-        </div>
-      </div>
-
-      <div class="sec-header">
-        <span class="sec-title">Around You &middot; Live Feed</span>
-      </div>
-
-      <div class="feed-box">
-        <div class="feed-item" onclick="openRequestModal('Fresh Fafda Jalebi & Chai', '☕')">
-          <div class="feed-icon">☕</div>
-          <div class="feed-body">
-            <div class="feed-title">Honest Tea &amp; Maskabun Stall</div>
-            <div class="feed-desc">Fresh ginger chai &amp; hot maskabun ready &middot; 300m away</div>
-            <div class="feed-meta"><span>Open now</span><span>&middot;</span><span class="feed-badge">Popular Morning Spot</span></div>
-          </div>
-        </div>
-
-        <div class="feed-item" onclick="openRequestModal('Laundry / Clothes Ironing', '👔')">
-          <div class="feed-icon">👔</div>
-          <div class="feed-body">
-            <div class="feed-title">Shiva Dhobi &amp; Steam Press</div>
-            <div class="feed-desc">Same-day pickup &amp; delivery for 10+ clothes &middot; ₹8/cloth</div>
-            <div class="feed-meta"><span>0.5 km</span><span>&middot;</span><span class="feed-badge">Pickup Available</span></div>
-          </div>
-        </div>
-
-        <div class="feed-item" onclick="openRequestModal('RO Drinking Water 20L', '💧')">
-          <div class="feed-icon">💧</div>
-          <div class="feed-body">
-            <div class="feed-title">PureDrop 20L Water Can Supplier</div>
-            <div class="feed-desc">₹30 per chilled jar, doorstep delivery in 20 minutes</div>
-            <div class="feed-meta"><span>0.8 km</span><span>&middot;</span><span class="feed-badge">Fast Delivery</span></div>
-          </div>
+        <div class="trending-pills-grid">
+          <div class="trending-pill" onclick="executeSearch('Burger')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Burger</div>
+          <div class="trending-pill" onclick="executeSearch('Milk & Dairy')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Milk</div>
+          <div class="trending-pill" onclick="executeSearch('Phone Repair')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Phone Repair</div>
+          <div class="trending-pill" onclick="executeSearch('Flowers & Mandi')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Flowers</div>
+          <div class="trending-pill" onclick="executeSearch('Gym & Fitness')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Gym</div>
+          <div class="trending-pill" onclick="executeSearch('Laptop Repair')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>Laptop</div>
         </div>
       </div>
     </section>
 
-    <!-- Explore Tab -->
-    <section id="tab-explore" class="tab-view">
-      <div class="sec-header" style="margin-top:4px;">
-        <span class="sec-title" style="font-size:18px;">All City Categories</span>
+    <!-- TAB: SEARCH -->
+    <section id="tab-search" class="tab-view">
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Search &amp; AI Assist</span></div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:18px;padding:18px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:36px;margin-bottom:8px;">🤖</div>
+        <div style="font-size:16px;font-weight:800;margin-bottom:4px;">Ask Gotilo AI Assistant</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Tell Gotilo in plain English, Gujarati or Hindi what you need.</div>
+        <button style="background:var(--accent-saffron);color:#fff;border:none;padding:11px 22px;border-radius:9999px;font-size:13.5px;font-weight:800;cursor:pointer;" onclick="window.location.href='chat.html'">Open AI Chatbot ⚡</button>
       </div>
-      <div class="explore-cat-section">
-        <div class="explore-cat-title">Everyday Essentials</div>
-        <div class="explore-grid">
-          <div class="explore-item" onclick="openRequestModal('Grocery & Kirana', '🛒')">
-            <span class="explore-emoji">🛒</span>
-            <div><div class="explore-name">Kirana &amp; Ration</div><div class="explore-count">28 shops nearby</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('Milk, Curd & Dairy', '🥛')">
-            <span class="explore-emoji">🥛</span>
-            <div><div class="explore-name">Milk &amp; Dairy</div><div class="explore-count">14 centers</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('Vegetables & Mandi', '🥦')">
-            <span class="explore-emoji">🥦</span>
-            <div><div class="explore-name">Subji &amp; Fruits</div><div class="explore-count">8 mandi stalls</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('24x7 Medicines', '💊')">
-            <span class="explore-emoji">💊</span>
-            <div><div class="explore-name">Pharmacies</div><div class="explore-count">12 open now</div></div>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <div class="explore-cat-section">
-        <div class="explore-cat-title">Home Maintenance &amp; Skilled Workers</div>
-        <div class="explore-grid">
-          <div class="explore-item" onclick="window.location.href='professional.html'">
-            <span class="explore-emoji">🔧</span>
-            <div><div class="explore-name">Plumbers</div><div class="explore-count">6 ready now</div></div>
-          </div>
-          <div class="explore-item" onclick="window.location.href='professional.html'">
-            <span class="explore-emoji">⚡</span>
-            <div><div class="explore-name">Electricians</div><div class="explore-count">9 available</div></div>
-          </div>
-          <div class="explore-item" onclick="window.location.href='professional.html'">
-            <span class="explore-emoji">❄️</span>
-            <div><div class="explore-name">AC &amp; Fridge</div><div class="explore-count">5 technicians</div></div>
-          </div>
-          <div class="explore-item" onclick="window.location.href='professional.html'">
-            <span class="explore-emoji">🪚</span>
-            <div><div class="explore-name">Carpenters</div><div class="explore-count">4 nearby</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="explore-cat-section">
-        <div class="explore-cat-title">Quick Urban Conveniences</div>
-        <div class="explore-grid">
-          <div class="explore-item" onclick="window.location.href='shop.html'">
-            <span class="explore-emoji">📄</span>
-            <div><div class="explore-name">Xerox &amp; Print</div><div class="explore-count">7 shops</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('Mobile Screen & Covers', '📱')">
-            <span class="explore-emoji">📱</span>
-            <div><div class="explore-name">Mobile Repair</div><div class="explore-count">11 shops</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('Bike Puncture Repair', '🛵')">
-            <span class="explore-emoji">🛵</span>
-            <div><div class="explore-name">Puncture &amp; Garage</div><div class="explore-count">6 doorstep</div></div>
-          </div>
-          <div class="explore-item" onclick="openRequestModal('Dhobi & Dry Cleaners', '👔')">
-            <span class="explore-emoji">👔</span>
-            <div><div class="explore-name">Laundry / Press</div><div class="explore-count">5 dry cleaners</div></div>
-          </div>
+    <!-- TAB: FAVORITES -->
+    <section id="tab-favorites" class="tab-view">
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Saved Places &amp; Pros</span></div>
+      <div id="favoritesList" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-size:14px;font-weight:800;">The Coffee House</div><div style="font-size:12px;color:var(--text-secondary);">Cafe &middot; 0.6 km &middot; ★ 4.6</div></div>
+          <span style="color:#EF4444;font-size:18px;">❤️</span>
         </div>
       </div>
     </section>
 
-    <!-- Activity Tab -->
-    <section id="tab-activity" class="tab-view">
-      <div class="sec-header" style="margin-top:4px;">
-        <span class="sec-title" style="font-size:18px;">Ongoing Activity</span>
-        <span class="sec-link" onclick="showToast('Refreshed live statuses')">Refresh</span>
-      </div>
-      <div class="activity-card">
-        <div class="act-status-row">
-          <div class="act-live-badge"><span class="act-live-dot"></span> On The Way</div>
-          <span style="font-size:12px;font-weight:700;color:var(--text-3);">Arrival: ~8 mins</span>
+    <!-- TAB: ORDERS -->
+    <section id="tab-orders" class="tab-view">
+      <div class="section-header" style="margin-top:8px;"><span class="section-title">Active Orders &amp; Requests</span></div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:18px;padding:16px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="background:var(--green-bg);color:var(--green);font-size:11px;font-weight:800;padding:2px 8px;border-radius:9999px;">● ON THE WAY</span>
+          <span style="font-size:11.5px;font-weight:700;color:var(--text-muted);">~10 mins</span>
         </div>
-        <div class="act-title">Rajesh Plumbing &middot; Tap Leakage</div>
-        <div class="act-desc">Assigned from Gotilo &middot; Flat 402, Ramnagar Society, Satellite</div>
-        <div class="act-actions-row">
-          <div class="act-btn-call" onclick="showToast('Calling Rajesh: +91 98250 XXXXX')">📞 Call Rajesh</div>
-          <div class="act-btn-track" onclick="window.location.href='chat.html'">💬 Chat Live</div>
-        </div>
-      </div>
-
-      <div class="activity-card" style="opacity:0.85;">
-        <div class="act-status-row">
-          <span style="font-size:11px;font-weight:800;color:var(--green);background:var(--green-bg);padding:3px 8px;border-radius:var(--radius-full);">✓ COMPLETED YESTERDAY</span>
-          <span style="font-size:11px;color:var(--text-3);">₹55 paid</span>
-        </div>
-        <div class="act-title">Shree Krishna Kirana &middot; Atta &amp; Besan</div>
-        <div class="act-desc">1kg Wheat Atta + 500g Besan delivered</div>
-        <div class="act-actions-row">
-          <div class="act-btn-call" onclick="openRequestModal('Re-order Atta & Besan', '🌾')">🔄 Re-order</div>
-          <div class="act-btn-call" onclick="showToast('Receipt saved to profile')">📄 Receipt</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Rajesh Plumbing Works</div>
+        <div style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px;">Tap leak repair visit &middot; Surat / Ahmedabad</div>
+        <div style="display:flex;gap:8px;">
+          <button style="flex:1;padding:9px;background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:10px;font-size:12.5px;font-weight:700;color:var(--text-primary);cursor:pointer;" onclick="showToast('Calling: +91 98250 88776')">📞 Call</button>
+          <button style="flex:1;padding:9px;background:var(--accent-saffron);border:none;border-radius:10px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;" onclick="window.location.href='chat.html?q=Track+Plumber'">💬 Chat Live</button>
         </div>
       </div>
     </section>
 
-    <!-- Messages Tab -->
-    <section id="tab-messages" class="tab-view">
-      <div class="sec-header" style="margin-top:4px;">
-        <span class="sec-title" style="font-size:18px;">Conversations</span>
-        <span class="sec-link" onclick="window.location.href='chat.html'">New Gotilo Chat</span>
-      </div>
-      <div class="feed-box">
-        <div class="feed-item" onclick="window.location.href='chat.html'">
-          <div class="feed-icon" style="background:var(--accent);color:#fff;font-weight:800;">G</div>
-          <div class="feed-body">
-            <div class="feed-title">Gotilo (ગોતીલો) &middot; Assistant</div>
-            <div class="feed-desc">"I found 4 plumbers nearby. Two can come right now..."</div>
-            <div class="feed-meta"><span>Active now</span><span>&middot;</span><span class="feed-badge">Main Bot</span></div>
-          </div>
-        </div>
-        <div class="feed-item" onclick="window.location.href='professional.html'">
-          <div class="feed-icon">🔧</div>
-          <div class="feed-body">
-            <div class="feed-title">Rajesh Plumber</div>
-            <div class="feed-desc">"Bhai, I am on the way, 5 mins me pohch raha hu."</div>
-            <div class="feed-meta"><span>10:14 AM</span><span>&middot;</span><span style="color:var(--green);font-weight:700;">Arriving</span></div>
-          </div>
-        </div>
-        <div class="feed-item" onclick="window.location.href='shop.html'">
-          <div class="feed-icon">🌾</div>
-          <div class="feed-body">
-            <div class="feed-title">Shree Krishna Kirana</div>
-            <div class="feed-desc">"Atta packing done, boy is leaving now."</div>
-            <div class="feed-meta"><span>Yesterday</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Profile Tab -->
+    <!-- TAB: PROFILE -->
     <section id="tab-profile" class="tab-view">
-      <div class="profile-hero">
-        <div class="profile-pic">H</div>
-        <div class="profile-name">Harsh Patel</div>
-        <div class="profile-phone">+91 98980 12345 &middot; Ahmedabad</div>
-        <div class="role-badge" id="profileRoleBadge">Customer Mode Active</div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:20px;padding:20px;text-align:center;margin-bottom:16px;">
+        <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#FF6B00,#FFA970);color:#fff;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 4px 14px rgba(255,107,0,0.3);">H</div>
+        <div style="font-size:18px;font-weight:800;">Harsh Patel</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:2px;">+91 98980 12345 &middot; Surat / Ahmedabad</div>
       </div>
-      <div class="profile-settings-group">
-        <div class="profile-row" onclick="toggleBusinessMode()">
-          <div class="profile-row-left">
-            <div class="profile-icon">💼</div>
-            <div>
-              <div class="profile-row-title">Switch to Local Business / Pro</div>
-              <div class="profile-row-sub">Accept customer leads &amp; orders</div>
-            </div>
-          </div>
-          <span style="font-size:16px;color:var(--accent);font-weight:700;">⇄</span>
+      <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:16px;overflow:hidden;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border-light);cursor:pointer;" onclick="toggleTheme()">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;"><span>🌓</span> Theme Mode</div>
+          <span id="themeLabelText" style="font-size:12.5px;font-weight:800;color:var(--accent-saffron);">Light Theme</span>
         </div>
-        <div class="profile-row" onclick="cycleLocation()">
-          <div class="profile-row-left">
-            <div class="profile-icon">📍</div>
-            <div>
-              <div class="profile-row-title">Saved Addresses</div>
-              <div class="profile-row-sub" id="profileLoc">Satellite, Vastrapur (Ahmedabad)</div>
-            </div>
-          </div>
-          <span style="color:var(--text-3);">›</span>
-        </div>
-        <div class="profile-row" onclick="showToast('Language settings saved')">
-          <div class="profile-row-left">
-            <div class="profile-icon">🌐</div>
-            <div>
-              <div class="profile-row-title">Preferred Language</div>
-              <div class="profile-row-sub" id="profileLang">English (English, ગુજરાતી, हिन्दी)</div>
-            </div>
-          </div>
-          <span style="color:var(--text-3);">›</span>
-        </div>
-        <div class="profile-row" onclick="window.location.href='manifest.webmanifest'">
-          <div class="profile-row-left">
-            <div class="profile-icon">📱</div>
-            <div>
-              <div class="profile-row-title">PWA &amp; App Install Info</div>
-              <div class="profile-row-sub">Gotilo v2.4 &middot; Build OK</div>
-            </div>
-          </div>
-          <span style="color:var(--text-3);">›</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;" onclick="openLocationPicker()">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;"><span>📍</span> Change City Location</div>
+          <span style="color:var(--text-muted);">›</span>
         </div>
       </div>
     </section>
   </main>
 
-  <nav class="nav-bar">
-    <div class="nav-tab active" onclick="switchTab('home', this)">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span class="nav-txt">Home</span>
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="nav-tab-item active" onclick="switchTab('home', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span class="nav-tab-label">Home</span>
     </div>
-    <div class="nav-tab" onclick="switchTab('explore', this)">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span class="nav-txt">Explore</span>
+    <div class="nav-tab-item" onclick="switchTab('search', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span class="nav-tab-label">Search</span>
     </div>
-    <div class="nav-tab" onclick="switchTab('activity', this)">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span class="nav-txt">Activity</span>
+    <div class="nav-tab-item" onclick="switchTab('favorites', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <span class="nav-tab-label">Favorites</span>
     </div>
-    <div class="nav-tab" onclick="switchTab('messages', this)">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="nav-txt">Messages</span>
+    <div class="nav-tab-item" onclick="switchTab('orders', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      <span class="nav-tab-label">Orders</span>
     </div>
-    <div class="nav-tab" onclick="switchTab('profile', this)">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span class="nav-txt">Profile</span>
+    <div class="nav-tab-item" onclick="switchTab('profile', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="nav-tab-label">Profile</span>
     </div>
   </nav>
+
 </div>
 
-<div id="requestModal" class="modal-overlay" onclick="closeRequestModal(event)">
-  <div class="modal-sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title" id="modalTitle">Request Service</div>
-    <div class="sheet-sub" id="modalSub">Gotilo will instantly broadcast to 5 verified providers nearby.</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text-3);margin-bottom:6px;text-transform:uppercase;">When do you need it?</div>
-    <div class="sheet-option-group">
-      <div class="sheet-opt selected" onclick="selectTimeOpt(this)">⚡ Right Now</div>
-      <div class="sheet-opt" onclick="selectTimeOpt(this)">📅 Today Evening</div>
-      <div class="sheet-opt" onclick="selectTimeOpt(this)">🕒 Schedule</div>
+<!-- Drawer -->
+<div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer(event)">
+  <div class="side-drawer" onclick="event.stopPropagation()">
+    <div class="drawer-head">
+      <div class="brand-wrap">
+        <div class="brand-title">Gotilo</div>
+        <div class="brand-sub-text">ગોતીલો</div>
+      </div>
+      <button class="theme-switch-btn" onclick="toggleTheme()">
+        <span id="drawerThemeIcon">☀️ Light</span>
+      </button>
     </div>
-    <div style="font-size:12px;font-weight:700;color:var(--text-3);margin-bottom:6px;text-transform:uppercase;">Describe your need (in plain words)</div>
-    <textarea id="modalTextarea" class="sheet-textarea" rows="3" placeholder="e.g. My kitchen pipe is dripping or need 2 cans of water..."></textarea>
-    <button class="sheet-submit-btn" onclick="submitModalRequest()">Confirm &amp; Find Someone</button>
+    <div class="drawer-menu-list">
+      <div class="drawer-menu-item" onclick="switchTab('home');closeDrawer();">🏠 Home</div>
+      <div class="drawer-menu-item" onclick="window.location.href='chat.html'">🤖 AI Hyperlocal Chatbot</div>
+      <div class="drawer-menu-item" onclick="openLocationPicker()">📍 Change Location</div>
+      <div class="drawer-menu-item" onclick="cycleLanguage()">🌐 Language</div>
+      <div class="drawer-menu-item" onclick="showToast('Switched to Business / Pro Mode 💼')">💼 Become a Vendor / Pro</div>
+      <div class="drawer-menu-item" onclick="showToast('Support: support@gotilo.in')">📞 Help &amp; Support</div>
+    </div>
   </div>
 </div>
 
-<div id="toast" class="toast">Action Done</div>
+<!-- Deals Modal -->
+<div id="dealsModal" class="modal-bg" onclick="closeDealsModal(event)">
+  <div class="modal-sheet-box" onclick="event.stopPropagation()">
+    <div class="sheet-bar"></div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Today's Best City Deals 🎁</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Top discounts from verified shops in Surat &amp; Ahmedabad.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+        <div><div style="font-size:14px;font-weight:800;">Shreeji Super Store</div><div style="font-size:12px;color:var(--text-secondary);">Flat 20% OFF on Monthly Ration</div></div>
+        <span style="font-weight:800;color:var(--accent-saffron);">20% OFF</span>
+      </div>
+      <div style="background:var(--bg-subtle);border:1px solid var(--border-light);border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+        <div><div style="font-size:14px;font-weight:800;">Rajesh Plumbing Services</div><div style="font-size:12px;color:var(--text-secondary);">First visit inspection at ₹99 only</div></div>
+        <span style="font-weight:800;color:var(--accent-saffron);">₹99</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Location Modal -->
+<div id="locModal" class="modal-bg" onclick="closeLocationPicker(event)">
+  <div class="modal-sheet-box" onclick="event.stopPropagation()">
+    <div class="sheet-bar"></div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Select Your City / Area 📍</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">Choose your active city location for accurate nearby results.</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);font-weight:700;cursor:pointer;" onclick="setCity('Surat, Gujarat')">📍 Surat, Gujarat (Vesu, Adajan, Varachha)</div>
+      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);font-weight:700;cursor:pointer;" onclick="setCity('Satellite, Ahmedabad')">📍 Ahmedabad (Satellite, Vastrapur, Bodakdev)</div>
+      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);font-weight:700;cursor:pointer;" onclick="setCity('Alkapuri, Vadodara')">📍 Vadodara (Alkapuri, Gotri)</div>
+      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);font-weight:700;cursor:pointer;" onclick="setCity('Kalawad Road, Rajkot')">📍 Rajkot (Kalawad Road)</div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Action</div>
 
 <script>
-const i18n = {
-  en: {
-    tag: "બસ કહો, ગોતીલો.",
-    greetHeadline: "Hey Harsh! 👋<br>What do you need today?",
-    greetSub: "Just say it in plain words. Gotilo finds it nearby.",
-    placeholder: "Tell Gotilo what you need...",
-    dailyTitle: "Daily Needs at Hand",
-    profileRole: "Customer Mode Active"
-  },
-  gu: {
-    tag: "બસ કહો, ગોતીલો.",
-    greetHeadline: "હાય હર્ષ! 👋<br>આજે તમારે શું જોઈએ છે?",
-    greetSub: "બસ સામાન્ય શબ્દોમાં કહો. ગોતીલો નજીકથી શોધી આપશે.",
-    placeholder: "ગોતીલોને કહો તમને શું જોઈએ...",
-    dailyTitle: "રોજિંદી જરૂરી વસ્તુઓ",
-    profileRole: "ગ્રાહક મોડ સક્રિય"
-  },
-  hi: {
-    tag: "बस कहिए, गोतीलो.",
-    greetHeadline: "नमस्ते हर्ष! 👋<br>आज आपको क्या चाहिए?",
-    greetSub: "बस अपनी भाषा में बताइए। गोतीलो पास से खोज निकालेगा।",
-    placeholder: "गोतीलो को बताइए आपको क्या चाहिए...",
-    dailyTitle: "दैनिक जरूरतें और सेवाएं",
-    profileRole: "ग्राहक मोड सक्रिय"
-  }
-};
-let currentLang = 'en';
-
-function setLang(lang, btn){
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  const d = i18n[lang];
-  document.getElementById('brandTag').textContent = d.tag;
-  document.getElementById('greetHeading').innerHTML = d.greetHeadline;
-  document.getElementById('greetSub').textContent = d.greetSub;
-  document.getElementById('homeQueryInput').placeholder = d.placeholder;
-  document.getElementById('secDailyTitle').textContent = d.dailyTitle;
-  document.getElementById('profileRoleBadge').textContent = d.profileRole;
-  document.getElementById('profileLang').textContent = lang === 'en' ? 'English' : (lang === 'gu' ? 'ગુજરાતી' : 'हिन्दी');
-  showToast(lang === 'gu' ? 'ભાષા બદલાઈ: ગુજરાતી' : (lang === 'hi' ? 'भाषा बदली: हिन्दी' : 'Language set: English'));
+function initTheme(){
+  const saved = localStorage.getItem('gotilo_theme') || 'light';
+  applyTheme(saved);
 }
 
-function switchTab(tabId, el){
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+}
+
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('gotilo_theme', theme);
+  const meta = document.getElementById('metaThemeColor');
+  if(meta) meta.setAttribute('content', theme === 'dark' ? '#0B0F17' : '#FFFFFF');
+  const drawerIcon = document.getElementById('drawerThemeIcon');
+  if(drawerIcon) drawerIcon.textContent = theme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  const label = document.getElementById('themeLabelText');
+  if(label) label.textContent = theme === 'dark' ? 'Dark Theme' : 'Light Theme';
+  showToast(theme === 'dark' ? '🌙 Dark Theme Activated' : '☀️ Light Theme Activated');
+}
+
+function openDrawer(){document.getElementById('drawerOverlay').classList.add('open');}
+function closeDrawer(e){document.getElementById('drawerOverlay').classList.remove('open');}
+
+function openLocationPicker(){document.getElementById('locModal').classList.add('active');}
+function closeLocationPicker(e){document.getElementById('locModal').classList.remove('active');}
+function setCity(cityStr){
+  document.getElementById('currentCityText').textContent = cityStr;
+  document.getElementById('locModal').classList.remove('active');
+  closeDrawer();
+  showToast('Location set: ' + cityStr);
+}
+
+function executeSearch(query){
+  if(!query.trim()) return;
+  showToast('Searching Gotilo: ' + query);
+  setTimeout(()=>{ window.location.href = 'chat.html?q=' + encodeURIComponent(query); }, 250);
+}
+
+document.getElementById('mainSearchInput').addEventListener('keydown', e=>{
+  if(e.key === 'Enter') executeSearch(e.target.value);
+});
+
+function startVoiceSearch(){
+  const mic = document.getElementById('voiceMicBtn');
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRec){
+    mic.classList.add('recording');
+    showToast('🎙️ Listening... (Voice search)');
+    setTimeout(()=>{ mic.classList.remove('recording'); executeSearch('Phone repair shop'); }, 1400);
+    return;
+  }
+  const rec = new SpeechRec();
+  rec.lang = 'gu-IN' || 'hi-IN' || 'en-IN';
+  mic.classList.add('recording');
+  showToast('🎙️ Speak your need now...');
+  rec.onresult = (e)=>{
+    const text = e.results[0][0].transcript;
+    document.getElementById('mainSearchInput').value = text;
+    mic.classList.remove('recording');
+    executeSearch(text);
+  };
+  rec.onerror = ()=>mic.classList.remove('recording');
+  rec.onend = ()=>mic.classList.remove('recording');
+  rec.start();
+}
+
+function switchTab(tabName, el){
   document.querySelectorAll('.tab-view').forEach(t=>t.classList.remove('active'));
-  const target = document.getElementById('tab-'+tabId);
+  const target = document.getElementById('tab-' + tabName);
   if(target) target.classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  if(el) {
+  document.querySelectorAll('.nav-tab-item').forEach(i=>i.classList.remove('active'));
+  if(el){
     el.classList.add('active');
   } else {
-    const tabs = ['home','explore','activity','messages','profile'];
-    const idx = tabs.indexOf(tabId);
-    if(idx >= 0 && document.querySelectorAll('.nav-tab')[idx]) {
-      document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+    const tabs = ['home', 'search', 'favorites', 'orders', 'profile'];
+    const idx = tabs.indexOf(tabName);
+    if(idx >= 0 && document.querySelectorAll('.nav-tab-item')[idx]){
+      document.querySelectorAll('.nav-tab-item')[idx].classList.add('active');
     }
   }
 }
 
-function submitHomeQuery(){
-  const inp = document.getElementById('homeQueryInput');
-  const val = inp.value.trim();
-  if(!val) return;
-  window.location.href = 'chat.html?q=' + encodeURIComponent(val);
+function openDealsModal(){document.getElementById('dealsModal').classList.add('active');}
+function closeDealsModal(e){document.getElementById('dealsModal').classList.remove('active');}
+
+function toggleFav(e, btn){
+  e.stopPropagation();
+  btn.classList.toggle('liked');
+  showToast(btn.classList.contains('liked') ? '❤️ Added to Favorites' : 'Removed from Favorites');
 }
 
-document.getElementById('homeQueryInput').addEventListener('keydown', e=>{
-  if(e.key === 'Enter') submitHomeQuery();
-});
+function showNotificationCenter(){showToast('🔔 2 new updates: Welcome to Gotilo!');}
 
-function quickAsk(text){
-  const inp = document.getElementById('homeQueryInput');
-  inp.value = text;
-  showToast('Searching Gotilo: "' + text + '"');
-  setTimeout(()=>{ window.location.href = 'chat.html?q=' + encodeURIComponent(text); }, 300);
-}
-
-function simulateVoiceInput(){
-  const inp = document.getElementById('homeQueryInput');
-  inp.placeholder = "Listening... Speak now 🎙️";
-  showToast("Listening... (Tap to speak)");
-  setTimeout(()=>{
-    inp.value = currentLang === 'gu' ? "મારે બાથરૂમનો નળ રિપેર કરવો છે" : (currentLang === 'hi' ? "मुझे एसी की सर्विस करवानी है" : "My bathroom tap is leaking");
-    inp.placeholder = i18n[currentLang].placeholder;
-    setTimeout(()=>submitHomeQuery(), 500);
-  }, 1200);
-}
-
-const locations = [
-  "Satellite, Ahmedabad",
-  "Vastrapur, Ahmedabad",
-  "Bodakdev, Ahmedabad",
-  "Prahlad Nagar, Ahmedabad",
-  "Navrangpura, Ahmedabad"
-];
-let locIdx = 0;
-function cycleLocation(){
-  locIdx = (locIdx + 1) % locations.length;
-  const parts = locations[locIdx].split(',');
-  document.getElementById('locDisplay').innerHTML = parts[0] + ', <span class="loc-text">' + parts[1].trim() + '</span>';
-  document.getElementById('profileLoc').textContent = locations[locIdx];
-  showToast("Location set to: " + locations[locIdx]);
-}
-
-let isBusinessMode = false;
-function toggleBusinessMode(){
-  isBusinessMode = !isBusinessMode;
-  const icon = document.getElementById('modeIcon');
-  const label = document.getElementById('modeLabel');
-  const badge = document.getElementById('profileRoleBadge');
-  if(isBusinessMode){
-    icon.textContent = "💼";
-    label.textContent = "Vendor";
-    badge.textContent = "Local Vendor / Pro Active";
-    badge.style.background = "#EFF6FF";
-    badge.style.color = "#1D4ED8";
-    showToast("Switched to Vendor / Pro Dashboard Mode 💼");
-  } else {
-    icon.textContent = "👤";
-    label.textContent = "User";
-    badge.textContent = "Customer Mode Active";
-    badge.style.background = "#FFF2E8";
-    badge.style.color = "#E8590C";
-    showToast("Switched to Customer Mode 👤");
-  }
-}
-
-function openRequestModal(title, emoji){
-  document.getElementById('modalTitle').textContent = emoji + ' ' + title;
-  document.getElementById('modalTextarea').value = 'Need assistance with ' + title + ' near ' + locations[locIdx];
-  document.getElementById('requestModal').classList.add('active');
-}
-function closeRequestModal(e){
-  document.getElementById('requestModal').classList.remove('active');
-}
-function selectTimeOpt(el){
-  document.querySelectorAll('.sheet-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-function submitModalRequest(){
-  document.getElementById('requestModal').classList.remove('active');
-  showToast("Request Sent! 4 providers alerted ⚡");
-  setTimeout(()=>{ switchTab('activity'); }, 400);
+let currentLangIdx = 0;
+const languages = ['English', 'ગુજરાતી', 'हिन्दी'];
+function cycleLanguage(){
+  currentLangIdx = (currentLangIdx + 1) % languages.length;
+  showToast('Language: ' + languages[currentLangIdx]);
 }
 
 let toastTimer = null;
@@ -1193,8 +594,10 @@ function showToast(msg){
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>{ t.classList.remove('show'); }, 2400);
+  toastTimer = setTimeout(()=>{ t.classList.remove('show'); }, 2200);
 }
+
+window.addEventListener('DOMContentLoaded', ()=>{ initTheme(); });
 </script>
 </body>
 </html>
